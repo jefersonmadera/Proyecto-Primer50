@@ -1,7 +1,5 @@
 package co.uptc.edu.controller;
-
-import co.edu.uptc.model.Cancion;
-
+import co.uptc.edu.model.Cancion;
 import java.util.ArrayList;
 
 public class CancionControl {

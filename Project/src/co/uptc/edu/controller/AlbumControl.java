@@ -1,6 +1,4 @@
 package co.uptc.edu.controller;
-
-import co.edu.uptc.model.Album;
 import co.uptc.edu.model.Album;
 
 import java.util.ArrayList;

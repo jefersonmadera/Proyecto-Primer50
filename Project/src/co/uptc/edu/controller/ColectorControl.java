@@ -1,8 +1,8 @@
 package co.uptc.edu.controller;
 
-import co.edu.uptc.model.Colector;
-import co.edu.uptc.model.ColectorAlbum;
-import co.edu.uptc.model.ColectorDetalles;
+import co.uptc.edu.model.Colector;
+import co.uptc.edu.model.ColectorAlbum;
+import co.uptc.edu.model.ColectorDetalles;
 
 import java.util.ArrayList;
 

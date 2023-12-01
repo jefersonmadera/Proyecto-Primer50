@@ -1,8 +1,5 @@
 package co.uptc.edu.controller;
-
-import co.edu.uptc.model.Colector;
 import co.uptc.edu.model.Colector;
-
 import java.util.ArrayList;
 
 public class ColeccionistaControl {
