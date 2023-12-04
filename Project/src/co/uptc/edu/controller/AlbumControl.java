@@ -1,4 +1,5 @@
 package co.uptc.edu.controller;
+
 import co.uptc.edu.model.Album;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public class AlbumControl {
     public boolean eliminarAlbum(String nombre) {
         return albums.removeIf(album -> album.getNombre().equals(nombre));
     }
-    
 
     public void actualizarAlbum(Album album, String portada, String nombre, String descripcion, String fechaLanzamiento,
             String genero, String etiquetaRegistro) throws IllegalArgumentException {
@@ -62,7 +62,5 @@ public class AlbumControl {
         }
         return listaAlbumes.toString();
     }
-    
-    
 
 }
