@@ -132,8 +132,10 @@ public class Runner {
                             System.out.println("Ingrese la descripción del artista: ");
                             String descripcionArtista = scanner.next();
 
+                            String id_artista;
+                            id_artista = scanner.next();
                             // Crea un objeto Artista con la información proporcionada
-                            Artista nuevoArtista = new Artista(nombreArtista, imagenArtista, descripcionArtista);
+                            Artista nuevoArtista = new Artista(nombreArtista, imagenArtista, descripcionArtista, id_artista);
 
                             // Utiliza el método añadirArtista de ArtistaControl
                             if (artistaControl.añadirArtista(nuevoArtista)) {
