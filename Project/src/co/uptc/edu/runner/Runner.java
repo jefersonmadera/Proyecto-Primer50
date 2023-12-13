@@ -4,6 +4,7 @@ import co.uptc.edu.controller.AlbumControl;
 import co.uptc.edu.controller.ArtistaControl;
 import co.uptc.edu.controller.ColeccionistaControl;
 import co.uptc.edu.controller.ComentariosControl;
+import co.uptc.edu.controller.AccesControl;
 import co.uptc.edu.model.Album;
 import co.uptc.edu.model.Artista;
 import co.uptc.edu.model.Colector;
@@ -20,8 +21,66 @@ public class Runner {
         ColeccionistaControl coleccionistaControl = new ColeccionistaControl();
         ArrayList<Album> listaAlbumes = albumControl.getAlbums();
         ArrayList<Colector> listaColeccionistas = coleccionistaControl.obtenerListaColeccionistas();
+        AccesControl accesControl = new AccesControl();
 
         int opcion;
+        boolean inicioSesion = false;
+        do {
+            System.out.println("Bienvenido a la aplicación de música.");
+            System.out.println("1. Iniciar Sesión");
+            System.out.println("2. Registrarse");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    //verificar si hay usuarios registrados
+                    if (accesControl.getUsuarios().isEmpty()) {
+                        System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►");
+                        System.out.println("No hay usuarios registrados. (Intente nuevamente)");
+                        System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►");
+                        break;
+                    }
+                    // Lógica para iniciar sesión
+                    System.out.println("Ingrese el nombre de usuario: ");
+                    String nombreUsuario = scanner.next();
+                    System.out.println("Ingrese la contraseña: ");
+                    String contrasena = scanner.next();
+
+                    if (accesControl.iniciarSesion(nombreUsuario, contrasena)) {
+                        System.out.println("Inicio de sesión exitoso.");
+                        inicioSesion = true;
+                    } else {
+                        System.out.println("Usuario o contraseña incorrectos.");
+                    }
+                    break;
+
+                case 2:
+                    // Lógica para registrarse
+                    System.out.println("Ingrese el nombre de usuario:");
+                    String nombreUsuarioRegistro = scanner.next();
+                    System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
+                    String contrasenaRegistro = scanner.next();
+
+                    if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
+                        System.out.println("Registro exitoso.");
+                    } else {
+                        System.out.println("Error al registrar el usuario.");
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Saliendo del programa. ¡Hasta luego!");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida. Inténtelo de nuevo.");
+                    break;
+            }
+
+        } while (inicioSesion != true);
 
         do {
             System.out.println("Menú:");
@@ -32,7 +91,6 @@ public class Runner {
             System.out.print("Seleccione una opción: ");
 
             opcion = scanner.nextInt();
-
             switch (opcion) {
                 case 1:
                     // Llamar a métodos de control de álbumes
@@ -43,6 +101,7 @@ public class Runner {
                     System.out.println("0. Volver al Menú Principal");
 
                     int opcionAlbum = scanner.nextInt();
+                    scanner.nextLine(); // Consumir la nueva línea pendiente
 
                     switch (opcionAlbum) {
                         case 1:
@@ -84,6 +143,7 @@ public class Runner {
                                 // Preguntar si desea agregar un álbum
                                 System.out.print("¿Desea agregar un nuevo álbum? (1: Sí, 0: No): ");
                                 int agregarNuevoAlbum = scanner.nextInt();
+                                scanner.nextLine(); // Consumir la nueva línea pendiente
                                 if (agregarNuevoAlbum == 1) {
                                     // Lógica para añadir álbum
                                     System.out.println("Ingrese los datos del álbum:");
@@ -241,10 +301,10 @@ public class Runner {
 
                             if (listaArtistas.isEmpty()) {
                                 System.out.println("La lista de artistas está vacía.");
-                                System.out.println("¿Desea agregar un nuevo artista? (Sí/No): ");
-                                String respuesta = scanner.next();
-
-                                if (respuesta.equalsIgnoreCase("Sí")) {
+                                System.out.println("¿Desea agregar un nuevo artista? (1.Sí/2.No): ");
+                                int respuesta = scanner.nextInt();
+                                scanner.nextLine(); // Consumir la nueva línea pendiente
+                                if (respuesta == 1) {
                                     // Lógica para añadir artista
                                     System.out.println("Ingrese el nombre del artista: ");
                                     String nombreArtistaNuevo = scanner.next();
@@ -348,7 +408,11 @@ public class Runner {
                                 System.out.println("Coleccionista registrado exitosamente.");
                             }
                             break;
+
                         case 2:
+                            //Obtener la lista de coleccionistas
+                            listaColeccionistas = coleccionistaControl.obtenerListaColeccionistas();
+                            System.out.println("numero de coleccionistas: " + listaColeccionistas.size());
                             // Lógica para mostrar lista de coleccionistas
                             for (Colector coleccionista : listaColeccionistas) {
                                 System.out.println(coleccionista.getName());
@@ -367,8 +431,7 @@ public class Runner {
                                     System.out.println((i + 1) + ". " + coleccionista.getName());
                                 }
 
-                                System.out
-                                        .println("Ingrese el número del coleccionista a eliminar (0 para cancelar): ");
+                                System.out.println("Ingrese el número del coleccionista a eliminar (0 para cancelar): ");
                                 int numeroEliminarColeccionista = scanner.nextInt();
 
                                 if (numeroEliminarColeccionista >= 1
