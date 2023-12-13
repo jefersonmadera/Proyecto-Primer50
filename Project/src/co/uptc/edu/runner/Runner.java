@@ -579,8 +579,24 @@ public class Runner {
                                         scanner.nextLine(); // Consumir la nueva línea pendiente
                                         if (agregarNuevaBanda == 1) {
                                             // Lógica para crear banda (similar a la opción 1 del menú)
-                                            // ...
-                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            // Lógica para crear banda
+                                            System.out.println("Ingrese el nombre de la banda: ");
+                                            String nombreBanda1 = scanner.nextLine();
+
+                                            System.out.println("Ingrese el género de la banda: ");
+                                            String generoBanda1 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la fecha de creación de la banda: ");
+                                            String fechaCreacionBanda1 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la lista de artistas de la banda: ");
+
+                                            // Crear un objeto Banda con la información proporcionada
+                                            Banda nuevaBanda1 = new Banda(null, nombreBanda1, generoBanda1,
+                                                    fechaCreacionBanda1,
+                                                    null);
+                                            bandaControl.crear(nuevaBanda1);
+                                            System.out.println("Banda creada exitosamente.");
                                             break;
                                         } else {
                                             System.out.println("Operación cancelada.");
@@ -604,9 +620,24 @@ public class Runner {
                                             Banda bandaActualizar = listaBandasActualizar
                                                     .get(numeroBandaActualizar - 1);
 
-                                            // Lógica para actualizar banda (similar a la opción 1 del menú)
-                                            // ...
-                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            // Lógica para crear banda
+                                            System.out.println("Ingrese el nombre de la banda: ");
+                                            String nombreBanda2 = scanner.nextLine();
+
+                                            System.out.println("Ingrese el género de la banda: ");
+                                            String generoBanda2 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la fecha de creación de la banda: ");
+                                            String fechaCreacionBanda2 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la lista de artistas de la banda: ");
+
+                                            // Crear un objeto Banda con la información proporcionada
+                                            Banda nuevaBanda2 = new Banda(null, nombreBanda2, generoBanda2,
+                                                    fechaCreacionBanda2,
+                                                    null);
+                                            bandaControl.crear(nuevaBanda2);
+                                            System.out.println("Banda creada exitosamente.");
 
                                             System.out.println("Banda actualizada exitosamente.");
                                         } else if (numeroBandaActualizar == 0) {
@@ -627,9 +658,24 @@ public class Runner {
                                         int agregarNuevaBanda = scanner.nextInt();
                                         scanner.nextLine(); // Consumir la nueva línea pendiente
                                         if (agregarNuevaBanda == 1) {
-                                            // Lógica para crear banda (similar a la opción 1 del menú)
-                                            // ...
-                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            // Lógica para crear banda
+                                            System.out.println("Ingrese el nombre de la banda: ");
+                                            String nombreBanda3 = scanner.nextLine();
+
+                                            System.out.println("Ingrese el género de la banda: ");
+                                            String generoBanda3 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la fecha de creación de la banda: ");
+                                            String fechaCreacionBanda3 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la lista de artistas de la banda: ");
+
+                                            // Crear un objeto Banda con la información proporcionada
+                                            Banda nuevaBanda3 = new Banda(null, nombreBanda3, generoBanda3,
+                                                    fechaCreacionBanda3,
+                                                    null);
+                                            bandaControl.crear(nuevaBanda3);
+                                            System.out.println("Banda creada exitosamente.");
                                             break;
                                         } else {
                                             System.out.println("Operación cancelada.");
@@ -674,9 +720,24 @@ public class Runner {
                                         int agregarNuevaBanda = scanner.nextInt();
                                         scanner.nextLine(); // Consumir la nueva línea pendiente
                                         if (agregarNuevaBanda == 1) {
-                                            // Lógica para crear banda (similar a la opción 1 del menú)
-                                            // ...
-                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            // Lógica para crear banda
+                                            System.out.println("Ingrese el nombre de la banda: ");
+                                            String nombreBanda4 = scanner.nextLine();
+
+                                            System.out.println("Ingrese el género de la banda: ");
+                                            String generoBanda4 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la fecha de creación de la banda: ");
+                                            String fechaCreacionBanda4 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la lista de artistas de la banda: ");
+
+                                            // Crear un objeto Banda con la información proporcionada
+                                            Banda nuevaBanda4 = new Banda(null, nombreBanda4, generoBanda4,
+                                                    fechaCreacionBanda4,
+                                                    null);
+                                            bandaControl.crear(nuevaBanda4);
+                                            System.out.println("Banda creada exitosamente.");
                                             break;
                                         } else {
                                             System.out.println("Operación cancelada.");
@@ -700,9 +761,24 @@ public class Runner {
                                             Banda bandaAgregarArtista = listaBandasAgregarArtista
                                                     .get(numeroBandaAgregarArtista - 1);
 
-                                            // Lógica para agregar artista a banda (similar a la opción 1 del menú)
-                                            // ...
-                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            // Lógica para crear banda
+                                            System.out.println("Ingrese el nombre de la banda: ");
+                                            String nombreBanda5 = scanner.nextLine();
+
+                                            System.out.println("Ingrese el género de la banda: ");
+                                            String generoBanda5 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la fecha de creación de la banda: ");
+                                            String fechaCreacionBanda5 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la lista de artistas de la banda: ");
+
+                                            // Crear un objeto Banda con la información proporcionada
+                                            Banda nuevaBanda5 = new Banda(null, nombreBanda5, generoBanda5,
+                                                    fechaCreacionBanda5,
+                                                    null);
+                                            bandaControl.crear(nuevaBanda5);
+                                            System.out.println("Banda creada exitosamente.");
 
                                             System.out.println("Artista agregado a la banda exitosamente.");
                                         } else if (numeroBandaAgregarArtista == 0) {
@@ -723,9 +799,24 @@ public class Runner {
                                         int agregarNuevaBanda = scanner.nextInt();
                                         scanner.nextLine(); // Consumir la nueva línea pendiente
                                         if (agregarNuevaBanda == 1) {
-                                            // Lógica para crear banda (similar a la opción 1 del menú)
-                                            // ...
-                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            // Lógica para crear banda
+                                            System.out.println("Ingrese el nombre de la banda: ");
+                                            String nombreBanda6 = scanner.nextLine();
+
+                                            System.out.println("Ingrese el género de la banda: ");
+                                            String generoBanda6 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la fecha de creación de la banda: ");
+                                            String fechaCreacionBanda6 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la lista de artistas de la banda: ");
+
+                                            // Crear un objeto Banda con la información proporcionada
+                                            Banda nuevaBanda6 = new Banda(null, nombreBanda6, generoBanda6,
+                                                    fechaCreacionBanda6,
+                                                    null);
+                                            bandaControl.crear(nuevaBanda6);
+                                            System.out.println("Banda creada exitosamente.");
                                             break;
                                         } else {
                                             System.out.println("Operación cancelada.");
@@ -749,9 +840,24 @@ public class Runner {
                                             Banda bandaEliminarArtista = listaBandasEliminarArtista
                                                     .get(numeroBandaEliminarArtista - 1);
 
-                                            // Lógica para eliminar artista de banda (similar a la opción 1 del menú)
-                                            // ...
-                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            // Lógica para crear banda
+                                            System.out.println("Ingrese el nombre de la banda: ");
+                                            String nombreBanda7 = scanner.nextLine();
+
+                                            System.out.println("Ingrese el género de la banda: ");
+                                            String generoBanda7 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la fecha de creación de la banda: ");
+                                            String fechaCreacionBanda7 = scanner.nextLine();
+
+                                            System.out.println("Ingrese la lista de artistas de la banda: ");
+
+                                            // Crear un objeto Banda con la información proporcionada
+                                            Banda nuevaBanda7 = new Banda(null, nombreBanda7, generoBanda7,
+                                                    fechaCreacionBanda7,
+                                                    null);
+                                            bandaControl.crear(nuevaBanda7);
+                                            System.out.println("Banda creada exitosamente.");
 
                                             System.out.println("Artista eliminado de la banda exitosamente.");
                                         } else if (numeroBandaEliminarArtista == 0) {
