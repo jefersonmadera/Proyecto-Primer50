@@ -9,7 +9,7 @@ public class Banda {
     private String Genero;
     private String id_banda;
 
-    public Banda(ArrayList<Artista> artistas, String fechaCreacion, String nombre, String genero, String id_banda) {
+    public Banda(ArrayList<Artista> artistas, String nombre, String genero, String fechaCreacion, String id_banda) {
         this.artistas = artistas;
         this.fechaCreacion = fechaCreacion;
         Nombre = nombre;

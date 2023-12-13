@@ -540,8 +540,6 @@ public class Runner {
                                     System.out.println("Ingrese la fecha de creación de la banda: ");
                                     String fechaCreacionBanda = scanner.nextLine();
 
-                                    System.out.println("Ingrese la lista de artistas de la banda: ");
-
                                     // Crear un objeto Banda con la información proporcionada
                                     Banda nuevaBanda = new Banda(null, nombreBanda, generoBanda, fechaCreacionBanda,
                                             null);
