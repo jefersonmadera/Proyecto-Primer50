@@ -118,7 +118,6 @@ public class Runner {
                             System.out.println("Ingrese los datos del álbum:");
 
                             // Consumir la nueva línea pendiente para evitar problemas de lectura
-                            scanner.nextLine();
 
                             System.out.print("Nombre del álbum: ");
                             String nombreAlbum = scanner.nextLine();
@@ -144,9 +143,11 @@ public class Runner {
                                 System.out.println("Lista de Álbumes:");
                                 int i = 1;
                                 for (Album album : listaAlbumes) {
+                                    // Mostrar lista de álbumes con números
                                     System.out.println(i + ". " + album.getNombre());
                                     i++;
                                 }
+                                System.out.println("ingrese el album para mostrar la informacion");
                             } else {
                                 System.out.println("La lista de álbumes está vacía.");
                                 // Preguntar si desea agregar un álbum
@@ -411,22 +412,20 @@ public class Runner {
                     System.out.println("0. Volver al Menú Principal");
 
                     int opcionArtista = scanner.nextInt();
+                    scanner.nextLine();// consumir el salto de linea
 
                     switch (opcionArtista) {
                         case 1:
                             // Lógica para añadir artista
                             System.out.println("Ingrese el nombre del artista: ");
-                            String nombreArtista = scanner.next();
-
-                            System.out.println("Ingrese la imagen del artista: ");
-                            String imagenArtista = scanner.next();
+                            String nombreArtista = scanner.nextLine();
 
                             System.out.println("Ingrese la descripción del artista: ");
-                            String descripcionArtista = scanner.next();
+                            String descripcionArtista = scanner.nextLine();
 
                             // Crea un objeto Artista con la información proporcionada
-                            Artista nuevoArtista = new Artista(nombreArtista, imagenArtista, descripcionArtista,
-                                    nombreArtista);
+                            Artista nuevoArtista = new Artista(nombreArtista, null, descripcionArtista,
+                                    null);
 
                             // Utiliza el método añadirArtista de ArtistaControl
                             if (artistaControl.añadirArtista(nuevoArtista)) {
