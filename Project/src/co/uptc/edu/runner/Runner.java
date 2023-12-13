@@ -41,6 +41,7 @@ public class Runner {
             System.out.print("Seleccione una opción: ");
 
             opcion = scanner.nextInt();
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
@@ -60,18 +61,24 @@ public class Runner {
                     if (accesControl.iniciarSesion(nombreUsuario, contrasena)) {
                         System.out.println("Inicio de sesión exitoso.");
                         inicioSesion = true;
-                    } else {
+                    } else  {
                         System.out.println("Usuario o contraseña incorrectos.");
                     }
                     break;
 
                 case 2:
                     // Lógica para registrarse
-                    System.out.println("Ingrese el nombre de usuario:");
-                    String nombreUsuarioRegistro = scanner.next();
-                    System.out.println(
-                            "Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
-                    String contrasenaRegistro = scanner.next();
+                    String nombreUsuarioRegistro;
+                    do {
+                        System.out.println("Ingrese el nombre de usuario:");
+                        nombreUsuarioRegistro = scanner.nextLine(); // Use nextLine() to get the full line of input
+                        if (nombreUsuarioRegistro.trim().isEmpty()){
+                            System.out.println("¡Error! El nombre de usuario no puede estar vacío.");
+                        }
+                    } while(nombreUsuarioRegistro.trim().isEmpty());
+
+                    System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
+                    String contrasenaRegistro = scanner.nextLine();
 
                     if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
                         System.out.println("Registro exitoso.");
@@ -217,6 +224,7 @@ public class Runner {
                                 }
                             }
                             break;
+                            //
                         case 4:
 
                             System.out.println("Ingrese el número del álbum para comentar (0 para cancelar):");
