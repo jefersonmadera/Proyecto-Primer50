@@ -2,15 +2,19 @@ package co.uptc.edu.runner;
 
 import co.uptc.edu.controller.AlbumControl;
 import co.uptc.edu.controller.ArtistaControl;
+import co.uptc.edu.controller.CancionControl;
 import co.uptc.edu.controller.ColeccionistaControl;
 import co.uptc.edu.controller.ComentariosControl;
 import co.uptc.edu.controller.AccesControl;
 import co.uptc.edu.model.Album;
 import co.uptc.edu.model.Artista;
+import co.uptc.edu.model.Banda;
+import co.uptc.edu.model.Cancion;
 import co.uptc.edu.model.Colector;
 import co.uptc.edu.model.Comentario;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Runner {
@@ -22,6 +26,7 @@ public class Runner {
         ArrayList<Album> listaAlbumes = albumControl.getAlbums();
         ArrayList<Colector> listaColeccionistas = coleccionistaControl.obtenerListaColeccionistas();
         AccesControl accesControl = new AccesControl();
+        CancionControl cancionControl = new CancionControl();
 
         int opcion;
         boolean inicioSesion = false;
@@ -36,7 +41,7 @@ public class Runner {
 
             switch (opcion) {
                 case 1:
-                    //verificar si hay usuarios registrados
+                    // verificar si hay usuarios registrados
                     if (accesControl.getUsuarios().isEmpty()) {
                         System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►");
                         System.out.println("No hay usuarios registrados. (Intente nuevamente)");
@@ -61,7 +66,8 @@ public class Runner {
                     // Lógica para registrarse
                     System.out.println("Ingrese el nombre de usuario:");
                     String nombreUsuarioRegistro = scanner.next();
-                    System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
+                    System.out.println(
+                            "Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
                     String contrasenaRegistro = scanner.next();
 
                     if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
@@ -98,6 +104,7 @@ public class Runner {
                     System.out.println("2. Mostrar Lista de Álbumes");
                     System.out.println("3. Eliminar Álbum");
                     System.out.println("4. Comentar Álbum");
+                    System.out.println("5. Menu Canciones");
                     System.out.println("0. Volver al Menú Principal");
 
                     int opcionAlbum = scanner.nextInt();
@@ -251,6 +258,137 @@ public class Runner {
                                 }
                             }
                             break;
+                        case 5: // Agregamos una nueva opción para canciones
+                            System.out.println("Menú de Canciones:");
+                            System.out.println("1. Añadir Canción");
+                            System.out.println("2. Mostrar Lista de Canciones");
+                            System.out.println("3. Actualizar Duración de Canción");
+                            System.out.println("4. Eliminar Canción");
+                            System.out.println("0. Volver al Menú Principal");
+
+                            int opcionCancion = scanner.nextInt();
+                            scanner.nextLine(); // Consumir la nueva línea pendiente
+
+                            switch (opcionCancion) {
+                                case 1:
+                                    // Lógica para añadir canción
+                                    System.out.println("Ingrese los datos de la canción:");
+
+                                    System.out.print("Nombre de la canción: ");
+                                    String nombreCancion = scanner.nextLine();
+                                    System.out.print("Duración de la canción (minutos): ");
+                                    String duracionCancion = scanner.nextLine();
+
+                                    // Lógica para añadir la canción usando el método agregarCancion de
+                                    // CancionControl
+                                    cancionControl.agregarCancion(new Cancion(nombreCancion, duracionCancion));
+                                    System.out.println("Canción añadida exitosamente.");
+                                    break;
+
+                                case 2:
+                                    // Lógica para mostrar lista de canciones
+                                    ArrayList<Cancion> listaCanciones = (ArrayList<Cancion>) cancionControl
+                                            .obtenerListaCanciones();
+
+                                    if (!listaCanciones.isEmpty()) {
+                                        System.out.println("Lista de Canciones:");
+                                        for (Cancion cancion : listaCanciones) {
+                                            System.out.println("Nombre: " + cancion.getNombre());
+                                            System.out.println("Duración: " + cancion.getDuracion());
+                                            System.out.println("------------------------------------");
+                                        }
+                                    } else {
+                                        System.out.println("La lista de canciones está vacía.");
+                                    }
+                                    break;
+
+                                case 3:
+                                    // Lógica para actualizar duración de canción
+                                    ArrayList<Cancion> listaCancionesActualizar = (ArrayList<Cancion>) cancionControl
+                                            .obtenerListaCanciones();
+
+                                    if (!listaCancionesActualizar.isEmpty()) {
+                                        System.out.println("Lista de Canciones:");
+                                        for (int i = 0; i < listaCancionesActualizar.size(); i++) {
+                                            Cancion cancion = listaCancionesActualizar.get(i);
+                                            System.out.println((i + 1) + ". " + cancion.getNombre());
+                                        }
+
+                                        System.out.println(
+                                                "Ingrese el número de la canción a actualizar (0 para cancelar): ");
+                                        int numeroCancionActualizar = scanner.nextInt();
+                                        scanner.nextLine(); // Consumir la nueva línea pendiente
+
+                                        if (numeroCancionActualizar >= 1
+                                                && numeroCancionActualizar <= listaCancionesActualizar.size()) {
+                                            // Obtener la canción seleccionada
+                                            Cancion cancionActualizar = listaCancionesActualizar
+                                                    .get(numeroCancionActualizar - 1);
+
+                                            System.out.println("Ingrese la nueva duración de la canción: ");
+                                            String nuevaDuracionCancion = scanner.nextLine();
+
+                                            // Lógica para actualizar la duración usando el método actualizarCancion de
+                                            // CancionControl
+                                            cancionControl.actualizarCancion(cancionActualizar.getNombre(),
+                                                    nuevaDuracionCancion);
+                                            System.out.println("Duración de la canción actualizada exitosamente.");
+                                        } else if (numeroCancionActualizar == 0) {
+                                            System.out.println("Operación cancelada.");
+                                        } else {
+                                            System.out.println("Número no válido. Inténtelo de nuevo.");
+                                        }
+                                    } else {
+                                        System.out.println("La lista de canciones está vacía.");
+                                    }
+                                    break;
+
+                                case 4:
+                                    // Lógica para eliminar canción
+                                    ArrayList<Cancion> listaCancionesEliminar = (ArrayList<Cancion>) cancionControl
+                                            .obtenerListaCanciones();
+
+                                    if (!listaCancionesEliminar.isEmpty()) {
+                                        System.out.println("Lista de Canciones:");
+                                        for (int i = 0; i < listaCancionesEliminar.size(); i++) {
+                                            Cancion cancion = listaCancionesEliminar.get(i);
+                                            System.out.println((i + 1) + ". " + cancion.getNombre());
+                                        }
+
+                                        System.out.println(
+                                                "Ingrese el número de la canción a eliminar (0 para cancelar): ");
+                                        int numeroCancionEliminar = scanner.nextInt();
+                                        scanner.nextLine(); // Consumir la nueva línea pendiente
+
+                                        if (numeroCancionEliminar >= 1
+                                                && numeroCancionEliminar <= listaCancionesEliminar.size()) {
+                                            // Obtener la canción seleccionada
+                                            Cancion cancionEliminar = listaCancionesEliminar
+                                                    .get(numeroCancionEliminar - 1);
+
+                                            // Lógica para eliminar la canción usando el método eliminarCancion de
+                                            // CancionControl
+                                            cancionControl.eliminarCancion(cancionEliminar.getNombre());
+                                            System.out.println("Canción eliminada exitosamente.");
+                                        } else if (numeroCancionEliminar == 0) {
+                                            System.out.println("Operación cancelada.");
+                                        } else {
+                                            System.out.println("Número no válido. Inténtelo de nuevo.");
+                                        }
+                                    } else {
+                                        System.out.println("La lista de canciones está vacía.");
+                                    }
+                                    break;
+
+                                case 0:
+                                    // Volver al Menú Principal
+                                    break;
+
+                                default:
+                                    System.out.println("Opción no válida. Inténtelo de nuevo.");
+                                    break;
+                            }
+                            break;
 
                         case 0:
                             // Volver al Menú Principal
@@ -267,6 +405,7 @@ public class Runner {
                     System.out.println("1. Añadir Artista");
                     System.out.println("2. Mostrar Lista de Artistas");
                     System.out.println("3. Eliminar Artista");
+                    System.out.println("4. Gestion Bandas");
                     System.out.println("0. Volver al Menú Principal");
 
                     int opcionArtista = scanner.nextInt();
@@ -376,6 +515,86 @@ public class Runner {
                                 System.out.println("Número de artista no válido.");
                             }
                             break;
+                        case 4:
+                            // Lógica para gestionar bandas
+                            System.out.println("1. Crear Banda");
+                            System.out.println("2. Mostrar Lista de Bandas");
+                            System.out.println("3. Actualizar Banda");
+                            System.out.println("4. Eliminar Banda");
+                            System.out.println("5. Agregar Artista a Banda");
+                            System.out.println("6. Eliminar Artista de Banda");
+                            System.out.println("0. Volver al Menú Principal");
+
+                            int opcionBanda = scanner.nextInt();
+                            scanner.nextLine(); // Consumir la nueva línea pendiente
+
+                            switch (opcionBanda) {
+                                case 1:
+                                    // Lógica para crear banda
+                                    System.out.println("Ingrese el nombre de la banda: ");
+                                    String nombreBanda = scanner.nextLine();
+
+                                    System.out.println("Ingrese el género de la banda: ");
+                                    String generoBanda = scanner.nextLine();
+
+                                    System.out.println("Ingrese la fecha de creación de la banda: ");
+                                    String fechaCreacionBanda = scanner.nextLine();
+
+                                    System.out.println("Ingrese la fecha de creación de la banda: ");
+                                    String fechaCreacionBanda = scanner.nextLine();
+
+                                    // Crear un objeto Banda con la información proporcionada
+                                    Banda nuevaBanda = new Banda(listaArtistas, nombreBanda, generoBanda, fechaCreacionBanda, nombreArtista);
+                                    bandaControl.crear(nuevaBanda);
+                                    System.out.println("Banda creada exitosamente.");
+                                    break;
+
+                                case 2:
+                                    // Lógica para mostrar lista de bandas
+                                    List<Banda> listaBandas = bandaControl.listar();
+
+                                    if (listaBandas.isEmpty()) {
+                                        System.out.println("La lista de bandas está vacía.");
+                                    } else {
+                                        System.out.println("Lista de Bandas:");
+                                        for (Banda banda : listaBandas) {
+                                            System.out.println("Nombre: " + banda.getNombre());
+                                            System.out.println("Género: " + banda.getGenero());
+                                            System.out.println("Fecha de Creación: " + banda.getFechaCreacion());
+                                            System.out.println("------------------------------------");
+                                        }
+                                    }
+                                    break;
+
+                                case 3:
+                                    // Lógica para actualizar banda
+                                    // (Puedes implementar lógica similar a la creación de la banda)
+                                    break;
+
+                                case 4:
+                                    // Lógica para eliminar banda
+                                    // (Puedes implementar lógica similar a la creación de la banda)
+                                    break;
+
+                                case 5:
+                                    // Lógica para agregar artista a banda
+                                    // (Puedes implementar lógica similar a la creación de la banda)
+                                    break;
+
+                                case 6:
+                                    // Lógica para eliminar artista de banda
+                                    // (Puedes implementar lógica similar a la creación de la banda)
+                                    break;
+
+                                case 0:
+                                    // Volver al Menú Principal
+                                    break;
+
+                                default:
+                                    System.out.println("Opción no válida. Inténtelo de nuevo.");
+                                    break;
+                            }
+                            break;
 
                         case 0:
                             // Volver al Menú Principal
@@ -410,7 +629,7 @@ public class Runner {
                             break;
 
                         case 2:
-                            //Obtener la lista de coleccionistas
+                            // Obtener la lista de coleccionistas
                             listaColeccionistas = coleccionistaControl.obtenerListaColeccionistas();
                             System.out.println("numero de coleccionistas: " + listaColeccionistas.size());
                             // Lógica para mostrar lista de coleccionistas
@@ -431,7 +650,8 @@ public class Runner {
                                     System.out.println((i + 1) + ". " + coleccionista.getName());
                                 }
 
-                                System.out.println("Ingrese el número del coleccionista a eliminar (0 para cancelar): ");
+                                System.out
+                                        .println("Ingrese el número del coleccionista a eliminar (0 para cancelar): ");
                                 int numeroEliminarColeccionista = scanner.nextInt();
 
                                 if (numeroEliminarColeccionista >= 1

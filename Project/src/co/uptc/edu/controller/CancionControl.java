@@ -1,32 +1,41 @@
 package co.uptc.edu.controller;
+
 import co.uptc.edu.model.Cancion;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class CancionControl {
-    private ArrayList<Cancion> canciones;
+    private List<Cancion> canciones;
 
     public CancionControl() {
         canciones = new ArrayList<>();
     }
 
     public void agregarCancion(Cancion cancion) {
-        canciones.add(cancion);
+        if (cancion != null && !cancion.getNombre().isEmpty()) {
+            canciones.add(cancion);
+        } else {
+            System.out.println("Error: La canción no puede ser nula y debe tener un nombre válido.");
+        }
     }
 
-    public void actualizarCancion(String nombre, String nuevaDuracion) {
+    public void actualizarCancion(String nombreCancion, String nuevaDuracion) {
         for (Cancion cancion : canciones) {
-            if (cancion.getNombre().equals(nombre)) {
+            if (cancion.getNombre().equals(nombreCancion)) {
                 cancion.setDuracion(nuevaDuracion);
-                break;
+                System.out.println("Canción actualizada exitosamente.");
+                return;
             }
         }
+        System.out.println("Error: Canción no encontrada.");
     }
 
     public void eliminarCancion(String nombre) {
         canciones.removeIf(cancion -> cancion.getNombre().equals(nombre));
     }
 
-    public ArrayList<Cancion> obtenerListaCanciones() {
+    public List<Cancion> obtenerListaCanciones() {
         return new ArrayList<>(canciones);
     }
 
@@ -39,5 +48,6 @@ public class CancionControl {
         return null; // Si no se encuentra la canción
     }
 }
+
 
 
