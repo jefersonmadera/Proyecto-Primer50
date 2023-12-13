@@ -3,9 +3,11 @@ package co.uptc.edu.runner;
 import co.uptc.edu.controller.AlbumControl;
 import co.uptc.edu.controller.ArtistaControl;
 import co.uptc.edu.controller.ColeccionistaControl;
+import co.uptc.edu.controller.ComentariosControl;
 import co.uptc.edu.model.Album;
 import co.uptc.edu.model.Artista;
 import co.uptc.edu.model.Colector;
+import co.uptc.edu.model.Comentario;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -37,6 +39,7 @@ public class Runner {
                     System.out.println("1. Añadir Álbum");
                     System.out.println("2. Mostrar Lista de Álbumes");
                     System.out.println("3. Eliminar Álbum");
+                    System.out.println("4. Comentar Álbum");
                     System.out.println("0. Volver al Menú Principal");
 
                     int opcionAlbum = scanner.nextInt();
@@ -78,6 +81,36 @@ public class Runner {
                                 }
                             } else {
                                 System.out.println("La lista de álbumes está vacía.");
+                                // Preguntar si desea agregar un álbum
+                                System.out.print("¿Desea agregar un nuevo álbum? (1: Sí, 0: No): ");
+                                int agregarNuevoAlbum = scanner.nextInt();
+                                if (agregarNuevoAlbum == 1) {
+                                    // Lógica para añadir álbum
+                                    System.out.println("Ingrese los datos del álbum:");
+
+                                    // Consumir la nueva línea pendiente para evitar problemas de lectura
+                                    scanner.nextLine();
+
+                                    System.out.print("Nombre del álbum: ");
+                                    String nombreAlbumNuevo = scanner.nextLine();
+                                    System.out.print("Portada del álbum: ");
+                                    String portadaAlbumNuevo = scanner.nextLine();
+                                    System.out.print("Descripcion del álbum: ");
+                                    String descripcionAlbumNuevo = scanner.nextLine();
+                                    System.out.print("Fecha lanzamiento del álbum: ");
+                                    String fechaLanzamientoAlbumNuevo = scanner.nextLine();
+                                    System.out.print("Genero del álbum: ");
+                                    String generoAlbumNuevo = scanner.nextLine();
+                                    System.out.print("Etiqueta Registro del álbum: ");
+                                    String etiquetaRegistroAlbumNuevo = scanner.nextLine();
+
+                                    // Lógica para añadir el álbum usando el método añadirAlbum de AlbumControl
+                                    albumControl.añadirAlbum(new Album(portadaAlbumNuevo, nombreAlbumNuevo,
+                                            descripcionAlbumNuevo,
+                                            fechaLanzamientoAlbumNuevo, generoAlbumNuevo, etiquetaRegistroAlbumNuevo));
+                                    System.out.println("Álbum añadido exitosamente.");
+                                    break;
+                                }
                             }
                             break;
 
@@ -86,18 +119,76 @@ public class Runner {
                             System.out.println("Lista de Álbumes:");
 
                             // Mostrar lista de álbumes
-                            for (Album album : listaAlbumes) {
-                                System.out.println(album.getNombre());
+                            for (int i = 0; i < listaAlbumes.size(); i++) {
+                                Album album = listaAlbumes.get(i);
+                                System.out.println((i + 1) + ". " + album.getNombre());
                             }
 
-                            System.out.println("Ingrese el nombre del álbum a eliminar: ");
-                            String nombreEliminar = scanner.next();
-
-                            // Utiliza el método eliminarAlbum de AlbumControl solo con el nombre
-                            if (albumControl.eliminarAlbum(nombreEliminar)) {
-                                System.out.println("Álbum eliminado exitosamente.");
+                            // Verificar si la lista está vacía
+                            if (listaAlbumes.isEmpty()) {
+                                System.out.println("La lista de álbumes está vacía.");
                             } else {
-                                System.out.println("El álbum no se encontró en la lista o no se pudo eliminar.");
+                                System.out.println("Ingrese el número del álbum a eliminar (0 para cancelar): ");
+                                int numeroEliminar = scanner.nextInt();
+
+                                if (numeroEliminar >= 1 && numeroEliminar <= listaAlbumes.size()) {
+                                    // Utiliza el método eliminarAlbum de AlbumControl con el índice
+                                    if (albumControl.eliminarAlbum(listaAlbumes.get(numeroEliminar - 1).getNombre())) {
+                                        System.out.println("Álbum eliminado exitosamente.");
+                                    } else {
+                                        System.out
+                                                .println("El álbum no se encontró en la lista o no se pudo eliminar.");
+                                    }
+                                } else if (numeroEliminar == 0) {
+                                    System.out.println("Operación cancelada.");
+                                } else {
+                                    System.out.println("Número no válido. Inténtelo de nuevo.");
+                                }
+                            }
+                            break;
+                        case 4:
+
+                            System.out.println("Ingrese el número del álbum para comentar (0 para cancelar):");
+
+                            // Mostrar lista de álbumes con números
+                            for (int i = 0; i < listaAlbumes.size(); i++) {
+                                Album album = listaAlbumes.get(i);
+                                System.out.println((i + 1) + ". " + album.getNombre());
+                            }
+
+                            if (listaAlbumes.isEmpty()) {
+                                System.out.println("La lista de álbumes está vacía.");
+                            } else {
+                                int numeroAlbumComentar = scanner.nextInt();
+
+                                // Crear una instancia de ComentariosControl
+                                ComentariosControl comentariosControl = new ComentariosControl();
+
+                                if (numeroAlbumComentar >= 1 && numeroAlbumComentar <= listaAlbumes.size()) {
+                                    Album albumComentar = listaAlbumes.get(numeroAlbumComentar - 1);
+                                    scanner.nextLine(); // Consumir la nueva línea pendiente
+
+                                    System.out.println(
+                                            "Ingrese su comentario para el álbum " + albumComentar.getNombre() + ":");
+                                    String textoComentario = scanner.nextLine();
+
+                                    // Agregar la lógica para obtener el rating del usuario
+                                    System.out.println("Ingrese el rating para el comentario (1-5):");
+                                    int ratingComentario = scanner.nextInt();
+
+                                    // Crear un objeto Comentario con la descripción y el rating proporcionados
+                                    Comentario nuevoComentario = new Comentario(textoComentario, ratingComentario);
+
+                                    // Lógica para agregar el comentario usando el método agregarComentario de
+                                    // ComentariosControl
+                                    comentariosControl.agregarComentario(albumComentar, nuevoComentario);
+
+                                    System.out.println("Comentario agregado exitosamente.");
+                                } else if (numeroAlbumComentar == 0) {
+                                    System.out.println("Operación cancelada.");
+                                } else {
+                                    System.out.println("Número no válido. Inténtelo de nuevo.");
+                                }
                             }
                             break;
 
@@ -132,11 +223,9 @@ public class Runner {
                             System.out.println("Ingrese la descripción del artista: ");
                             String descripcionArtista = scanner.next();
 
-                            System.out.println("Ingrese el id del artista: ");
-                            String id_artista = scanner.next();
                             // Crea un objeto Artista con la información proporcionada
                             Artista nuevoArtista = new Artista(nombreArtista, imagenArtista, descripcionArtista,
-                                    id_artista);
+                                    nombreArtista);
 
                             // Utiliza el método añadirArtista de ArtistaControl
                             if (artistaControl.añadirArtista(nuevoArtista)) {
@@ -152,6 +241,42 @@ public class Runner {
 
                             if (listaArtistas.isEmpty()) {
                                 System.out.println("La lista de artistas está vacía.");
+                                System.out.println("¿Desea agregar un nuevo artista? (Sí/No): ");
+                                String respuesta = scanner.next();
+
+                                if (respuesta.equalsIgnoreCase("Sí")) {
+                                    // Lógica para añadir artista
+                                    System.out.println("Ingrese el nombre del artista: ");
+                                    String nombreArtistaNuevo = scanner.next();
+
+                                    System.out.println("Ingrese la imagen del artista: ");
+                                    String imagenArtistaNuevo = scanner.next();
+
+                                    System.out.println("Ingrese la descripción del artista: ");
+                                    String descripcionArtistaNuevo = scanner.next();
+
+                                    // Crea un objeto Artista con la información proporcionada
+                                    Artista nuevoArtista1 = new Artista(nombreArtistaNuevo, imagenArtistaNuevo,
+                                            descripcionArtistaNuevo, nombreArtistaNuevo);
+
+                                    // Utiliza el método añadirArtista de ArtistaControl
+                                    if (artistaControl.añadirArtista(nuevoArtista1)) {
+                                        System.out.println("Artista añadido exitosamente.");
+                                    } else {
+                                        System.out.println("El artista ya existe en la lista.");
+                                    }
+
+                                    // Muestra la lista actualizada de artistas
+                                    listaArtistas = artistaControl.obtenerListaArtistas();
+                                    for (Artista artista : listaArtistas) {
+                                        System.out.println("Nombre: " + artista.getNombre());
+                                        System.out.println("Imagen: " + artista.getImagen());
+                                        System.out.println("Descripción: " + artista.getDescripcion());
+                                        System.out.println("------------------------------------");
+                                    }
+                                } else {
+                                    System.out.println("Operación cancelada.");
+                                }
                             } else {
                                 System.out.println("Lista de Artistas:");
                                 for (Artista artista : listaArtistas) {
@@ -167,20 +292,28 @@ public class Runner {
                             // Lógica para eliminar artista
                             System.out.println("Lista de Artistas:");
 
-                            // Mostrar lista de artistas
+                            // Mostrar lista de artistas con números
                             ArrayList<Artista> listaArtistasEliminar = artistaControl.obtenerListaArtistas();
-                            for (Artista artista : listaArtistasEliminar) {
-                                System.out.println(artista.getNombre());
+                            for (int i = 0; i < listaArtistasEliminar.size(); i++) {
+                                Artista artista = listaArtistasEliminar.get(i);
+                                System.out.println((i + 1) + ". " + artista.getNombre());
                             }
 
-                            System.out.println("Ingrese el nombre del artista a eliminar: ");
-                            String nombreArtistaEliminar = scanner.next();
+                            System.out.println("Ingrese el número del artista a eliminar (0 para cancelar): ");
+                            int numeroArtistaEliminar = scanner.nextInt();
 
-                            // Utiliza el método eliminarArtista de ArtistaControl solo con el nombre
-                            if (artistaControl.eliminarArtista(nombreArtistaEliminar)) {
-                                System.out.println("Artista eliminado exitosamente.");
+                            if (numeroArtistaEliminar >= 1 && numeroArtistaEliminar <= listaArtistasEliminar.size()) {
+                                // Utiliza el método eliminarArtista de ArtistaControl con el índice
+                                Artista artistaEliminar = listaArtistasEliminar.get(numeroArtistaEliminar - 1);
+                                if (artistaControl.eliminarArtista(artistaEliminar.getNombre())) {
+                                    System.out.println("Artista eliminado exitosamente.");
+                                } else {
+                                    System.out.println("El artista no se encontró en la lista o no se pudo eliminar.");
+                                }
+                            } else if (numeroArtistaEliminar == 0) {
+                                System.out.println("Operación cancelada.");
                             } else {
-                                System.out.println("El artista no se encontró en la lista o no se pudo eliminar.");
+                                System.out.println("Número de artista no válido.");
                             }
                             break;
 
@@ -222,25 +355,37 @@ public class Runner {
                             }
                             break;
                         case 3:
+                            // Lógica para eliminar coleccionista
                             if (listaColeccionistas.isEmpty()) {
                                 System.out.println("La lista de coleccionistas está vacía.");
                             } else {
                                 System.out.println("Lista de Coleccionistas:");
-                                for (Colector coleccionista : listaColeccionistas) {
-                                    System.out.println(coleccionista.getName());
+
+                                // Mostrar lista de coleccionistas con números
+                                for (int i = 0; i < listaColeccionistas.size(); i++) {
+                                    Colector coleccionista = listaColeccionistas.get(i);
+                                    System.out.println((i + 1) + ". " + coleccionista.getName());
                                 }
 
-                                // Lógica para eliminar coleccionista
-                                System.out.println("Ingrese el nombre del coleccionista a eliminar: ");
-                                String nombreEliminarColeccionista = scanner.next();
+                                System.out
+                                        .println("Ingrese el número del coleccionista a eliminar (0 para cancelar): ");
+                                int numeroEliminarColeccionista = scanner.nextInt();
 
-                                // Utiliza el método eliminarColeccionista de ColeccionistaControl
-                                if (coleccionistaControl.eliminarColeccionista(
-                                        new Colector(nombreEliminarColeccionista, null, null, null, null))) {
-                                    System.out.println("Coleccionista eliminado exitosamente.");
+                                if (numeroEliminarColeccionista >= 1
+                                        && numeroEliminarColeccionista <= listaColeccionistas.size()) {
+                                    // Utiliza el método eliminarColeccionista de ColeccionistaControl con el índice
+                                    Colector coleccionistaEliminar = listaColeccionistas
+                                            .get(numeroEliminarColeccionista - 1);
+                                    if (coleccionistaControl.eliminarColeccionista(coleccionistaEliminar)) {
+                                        System.out.println("Coleccionista eliminado exitosamente.");
+                                    } else {
+                                        System.out.println(
+                                                "El coleccionista no se encontró en la lista o no se pudo eliminar.");
+                                    }
+                                } else if (numeroEliminarColeccionista == 0) {
+                                    System.out.println("Operación cancelada.");
                                 } else {
-                                    System.out.println(
-                                            "El coleccionista no se encontró en la lista o no se pudo eliminar.");
+                                    System.out.println("Número de coleccionista no válido.");
                                 }
                             }
                             break;
