@@ -1,14 +1,24 @@
 package co.uptc.edu.model;
 
 public class Premio {
-    String organizacion;
-    String nombre;
-    String descripcion;
+    private String id_premio;
+    private String organizacion;
+    private String nombre;
+    private String descripcion;
 
-    public Premio(String organizacion, String nombre, String descripcion) {
+    public Premio(String id_premio, String organizacion, String nombre, String descripcion) {
+        this.id_premio = id_premio;
         this.organizacion = organizacion;
         this.nombre = nombre;
         this.descripcion = descripcion;
+    }
+
+    public String getId_premio() {
+        return id_premio;
+    }
+
+    public void setId_premio(String id_premio) {
+        this.id_premio = id_premio;
     }
 
     public String getOrganizacion() {
@@ -34,5 +44,4 @@ public class Premio {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
 }

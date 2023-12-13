@@ -1,10 +1,10 @@
 package co.uptc.edu.model;
 
-public class Comentarios {
+public class Comentario {
     String descripcion;
     int rating;
 
-    public Comentarios(String descripcion, int rating) {
+    public Comentario(String descripcion, int rating) {
         this.descripcion = descripcion;
         this.rating = rating;
     }

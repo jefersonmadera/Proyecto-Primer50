@@ -34,4 +34,15 @@ public class ArtistaControl {
         }
         return false;
     }
+
+    private Artista buscarArtista(String idArtista) {
+        for (Artista artista : artistas) {
+            if (artista.getId_artista().equals(idArtista)) {
+                return artista;
+            }
+        }
+        return null;
+    }
+    
+
 }
