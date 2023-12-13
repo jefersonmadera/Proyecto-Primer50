@@ -6,6 +6,7 @@ import co.uptc.edu.controller.CancionControl;
 import co.uptc.edu.controller.ColeccionistaControl;
 import co.uptc.edu.controller.ComentariosControl;
 import co.uptc.edu.controller.AccesControl;
+import co.uptc.edu.controller.BandaControl;
 import co.uptc.edu.model.Album;
 import co.uptc.edu.model.Artista;
 import co.uptc.edu.model.Banda;
@@ -27,6 +28,7 @@ public class Runner {
         ArrayList<Colector> listaColeccionistas = coleccionistaControl.obtenerListaColeccionistas();
         AccesControl accesControl = new AccesControl();
         CancionControl cancionControl = new CancionControl();
+        BandaControl bandaControl = new BandaControl();
 
         int opcion;
         boolean inicioSesion = false;
@@ -540,11 +542,11 @@ public class Runner {
                                     System.out.println("Ingrese la fecha de creación de la banda: ");
                                     String fechaCreacionBanda = scanner.nextLine();
 
-                                    System.out.println("Ingrese la fecha de creación de la banda: ");
-                                    String fechaCreacionBanda = scanner.nextLine();
+                                    System.out.println("Ingrese la lista de artistas de la banda: ");
 
                                     // Crear un objeto Banda con la información proporcionada
-                                    Banda nuevaBanda = new Banda(listaArtistas, nombreBanda, generoBanda, fechaCreacionBanda, nombreArtista);
+                                    Banda nuevaBanda = new Banda(null, nombreBanda, generoBanda, fechaCreacionBanda,
+                                            null);
                                     bandaControl.crear(nuevaBanda);
                                     System.out.println("Banda creada exitosamente.");
                                     break;
@@ -568,22 +570,196 @@ public class Runner {
 
                                 case 3:
                                     // Lógica para actualizar banda
-                                    // (Puedes implementar lógica similar a la creación de la banda)
+                                    // Mostrar lista de bandas
+                                    List<Banda> listaBandasActualizar = bandaControl.listar();
+                                    if (listaBandasActualizar.isEmpty()) {
+                                        System.out.println("La lista de bandas está vacía.");
+                                        System.out.println("¿Desea agregar una nueva banda? (1: Sí, 0: No): ");
+                                        int agregarNuevaBanda = scanner.nextInt();
+                                        scanner.nextLine(); // Consumir la nueva línea pendiente
+                                        if (agregarNuevaBanda == 1) {
+                                            // Lógica para crear banda (similar a la opción 1 del menú)
+                                            // ...
+                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            break;
+                                        } else {
+                                            System.out.println("Operación cancelada.");
+                                            break;
+                                        }
+                                    } else {
+                                        // Mostrar lista de bandas con números
+                                        System.out.println("Lista de Bandas:");
+                                        for (int i = 0; i < listaBandasActualizar.size(); i++) {
+                                            Banda banda = listaBandasActualizar.get(i);
+                                            System.out.println((i + 1) + ". " + banda.getNombre());
+                                        }
+
+                                        System.out.println(
+                                                "Ingrese el número de la banda a actualizar (0 para cancelar): ");
+                                        int numeroBandaActualizar = scanner.nextInt();
+
+                                        if (numeroBandaActualizar >= 1
+                                                && numeroBandaActualizar <= listaBandasActualizar.size()) {
+                                            // Obtener la banda seleccionada
+                                            Banda bandaActualizar = listaBandasActualizar
+                                                    .get(numeroBandaActualizar - 1);
+
+                                            // Lógica para actualizar banda (similar a la opción 1 del menú)
+                                            // ...
+                                            // Puedes reutilizar la lógica de creación de banda aquí
+
+                                            System.out.println("Banda actualizada exitosamente.");
+                                        } else if (numeroBandaActualizar == 0) {
+                                            System.out.println("Operación cancelada.");
+                                        } else {
+                                            System.out.println("Número no válido. Inténtelo de nuevo.");
+                                        }
+                                    }
                                     break;
 
                                 case 4:
                                     // Lógica para eliminar banda
-                                    // (Puedes implementar lógica similar a la creación de la banda)
+                                    // Mostrar lista de bandas
+                                    List<Banda> listaBandasEliminar = bandaControl.listar();
+                                    if (listaBandasEliminar.isEmpty()) {
+                                        System.out.println("La lista de bandas está vacía.");
+                                        System.out.println("¿Desea agregar una nueva banda? (1: Sí, 0: No): ");
+                                        int agregarNuevaBanda = scanner.nextInt();
+                                        scanner.nextLine(); // Consumir la nueva línea pendiente
+                                        if (agregarNuevaBanda == 1) {
+                                            // Lógica para crear banda (similar a la opción 1 del menú)
+                                            // ...
+                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            break;
+                                        } else {
+                                            System.out.println("Operación cancelada.");
+                                            break;
+                                        }
+                                    } else {
+                                        // Mostrar lista de bandas con números
+                                        System.out.println("Lista de Bandas:");
+                                        for (int i = 0; i < listaBandasEliminar.size(); i++) {
+                                            Banda banda = listaBandasEliminar.get(i);
+                                            System.out.println((i + 1) + ". " + banda.getNombre());
+                                        }
+
+                                        System.out.println(
+                                                "Ingrese el número de la banda a eliminar (0 para cancelar): ");
+                                        int numeroBandaEliminar = scanner.nextInt();
+
+                                        if (numeroBandaEliminar >= 1
+                                                && numeroBandaEliminar <= listaBandasEliminar.size()) {
+                                            // Obtener la banda seleccionada
+                                            Banda bandaEliminar = listaBandasEliminar.get(numeroBandaEliminar - 1);
+
+                                            // Lógica para eliminar banda (similar a la opción 1 del menú)
+                                            bandaControl.eliminar(bandaEliminar.getId_banda());
+
+                                            System.out.println("Banda eliminada exitosamente.");
+                                        } else if (numeroBandaEliminar == 0) {
+                                            System.out.println("Operación cancelada.");
+                                        } else {
+                                            System.out.println("Número no válido. Inténtelo de nuevo.");
+                                        }
+                                    }
                                     break;
 
                                 case 5:
                                     // Lógica para agregar artista a banda
-                                    // (Puedes implementar lógica similar a la creación de la banda)
+                                    // Mostrar lista de bandas
+                                    List<Banda> listaBandasAgregarArtista = bandaControl.listar();
+                                    if (listaBandasAgregarArtista.isEmpty()) {
+                                        System.out.println("La lista de bandas está vacía.");
+                                        System.out.println("¿Desea agregar una nueva banda? (1: Sí, 0: No): ");
+                                        int agregarNuevaBanda = scanner.nextInt();
+                                        scanner.nextLine(); // Consumir la nueva línea pendiente
+                                        if (agregarNuevaBanda == 1) {
+                                            // Lógica para crear banda (similar a la opción 1 del menú)
+                                            // ...
+                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            break;
+                                        } else {
+                                            System.out.println("Operación cancelada.");
+                                            break;
+                                        }
+                                    } else {
+                                        // Mostrar lista de bandas con números
+                                        System.out.println("Lista de Bandas:");
+                                        for (int i = 0; i < listaBandasAgregarArtista.size(); i++) {
+                                            Banda banda = listaBandasAgregarArtista.get(i);
+                                            System.out.println((i + 1) + ". " + banda.getNombre());
+                                        }
+
+                                        System.out.println(
+                                                "Ingrese el número de la banda a la que desea agregar un artista (0 para cancelar): ");
+                                        int numeroBandaAgregarArtista = scanner.nextInt();
+
+                                        if (numeroBandaAgregarArtista >= 1
+                                                && numeroBandaAgregarArtista <= listaBandasAgregarArtista.size()) {
+                                            // Obtener la banda seleccionada
+                                            Banda bandaAgregarArtista = listaBandasAgregarArtista
+                                                    .get(numeroBandaAgregarArtista - 1);
+
+                                            // Lógica para agregar artista a banda (similar a la opción 1 del menú)
+                                            // ...
+                                            // Puedes reutilizar la lógica de creación de banda aquí
+
+                                            System.out.println("Artista agregado a la banda exitosamente.");
+                                        } else if (numeroBandaAgregarArtista == 0) {
+                                            System.out.println("Operación cancelada.");
+                                        } else {
+                                            System.out.println("Número no válido. Inténtelo de nuevo.");
+                                        }
+                                    }
                                     break;
 
                                 case 6:
                                     // Lógica para eliminar artista de banda
-                                    // (Puedes implementar lógica similar a la creación de la banda)
+                                    // Mostrar lista de bandas
+                                    List<Banda> listaBandasEliminarArtista = bandaControl.listar();
+                                    if (listaBandasEliminarArtista.isEmpty()) {
+                                        System.out.println("La lista de bandas está vacía.");
+                                        System.out.println("¿Desea agregar una nueva banda? (1: Sí, 0: No): ");
+                                        int agregarNuevaBanda = scanner.nextInt();
+                                        scanner.nextLine(); // Consumir la nueva línea pendiente
+                                        if (agregarNuevaBanda == 1) {
+                                            // Lógica para crear banda (similar a la opción 1 del menú)
+                                            // ...
+                                            // Puedes reutilizar la lógica de creación de banda aquí
+                                            break;
+                                        } else {
+                                            System.out.println("Operación cancelada.");
+                                            break;
+                                        }
+                                    } else {
+                                        // Mostrar lista de bandas con números
+                                        System.out.println("Lista de Bandas:");
+                                        for (int i = 0; i < listaBandasEliminarArtista.size(); i++) {
+                                            Banda banda = listaBandasEliminarArtista.get(i);
+                                            System.out.println((i + 1) + ". " + banda.getNombre());
+                                        }
+
+                                        System.out.println(
+                                                "Ingrese el número de la banda de la que desea eliminar un artista (0 para cancelar): ");
+                                        int numeroBandaEliminarArtista = scanner.nextInt();
+
+                                        if (numeroBandaEliminarArtista >= 1
+                                                && numeroBandaEliminarArtista <= listaBandasEliminarArtista.size()) {
+                                            // Obtener la banda seleccionada
+                                            Banda bandaEliminarArtista = listaBandasEliminarArtista
+                                                    .get(numeroBandaEliminarArtista - 1);
+
+                                            // Lógica para eliminar artista de banda (similar a la opción 1 del menú)
+                                            // ...
+                                            // Puedes reutilizar la lógica de creación de banda aquí
+
+                                            System.out.println("Artista eliminado de la banda exitosamente.");
+                                        } else if (numeroBandaEliminarArtista == 0) {
+                                            System.out.println("Operación cancelada.");
+                                        } else {
+                                            System.out.println("Número no válido. Inténtelo de nuevo.");
+                                        }
+                                    }
                                     break;
 
                                 case 0:
