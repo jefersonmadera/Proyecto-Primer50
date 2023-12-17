@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 public class Runner {
     public static void main(String[] args) {
-        //esta en sincronizacion con la base de datos
+        // esta en sincronizacion con la base de datos
         Scanner scanner = new Scanner(System.in);
         AlbumControl albumControl = new AlbumControl();
         ArtistaControl artistaControl = new ArtistaControl();
@@ -70,13 +72,33 @@ public class Runner {
                     System.out.println("Ingrese el nombre de usuario:");
                     String nombreUsuarioRegistro = scanner.next();
                     System.out.println(
-                            "Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
+                            "Ingrese la contraseña (La contraseña debe tener por lo menos una mayúscula, una minúscula y 8 caracteres): ");
                     String contrasenaRegistro = scanner.next();
 
                     if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
                         System.out.println("Registro exitoso.");
                     } else {
-                        System.out.println("Error al registrar el usuario.");
+                        // Si el registro no es exitoso, mostrar mensajes de error específicos
+                        if (nombreUsuarioRegistro == null || nombreUsuarioRegistro.isEmpty()) {
+                            System.out.println("El nombre de usuario no puede estar vacío.");
+                        }
+
+                        if (contrasenaRegistro.length() < 8) {
+                            System.out.println("La contraseña debe tener al menos 8 caracteres.");
+                        }
+
+                        if (!contrasenaRegistro.matches(".*[A-Z]*.")) {
+                            System.out.println("La contraseña debe contener al menos una mayúscula.");
+                        }
+
+                        if (!contrasenaRegistro.matches(".*[a-z]*.")) {
+                            System.out.println("La contraseña debe contener al menos una minúscula.");
+                        }
+
+                        if (!contrasenaRegistro.contains("@") && !contrasenaRegistro.contains("*")) {
+                            System.out.println("La contraseña debe contener al menos un '@' o '*'.");
+                        }
+
                     }
                     break;
 
