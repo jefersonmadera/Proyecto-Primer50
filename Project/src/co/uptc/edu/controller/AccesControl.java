@@ -31,11 +31,11 @@ public class AccesControl {
                 contieneMinuscula(contrasena);
     }
 
-    private boolean contieneMayuscula(String contrasena) {
+    public boolean contieneMayuscula(String contrasena) {
         return !contrasena.equals(contrasena.toLowerCase());
     }
 
-    private boolean contieneMinuscula(String contrasena) {
+    public boolean contieneMinuscula(String contrasena) {
         return !contrasena.equals(contrasena.toUpperCase());
     }
 

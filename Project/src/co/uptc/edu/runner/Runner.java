@@ -61,7 +61,7 @@ public class Runner {
                     if (accesControl.iniciarSesion(nombreUsuario, contrasena)) {
                         System.out.println("Inicio de sesión exitoso.");
                         inicioSesion = true;
-                    } else  {
+                    } else {
                         System.out.println("Usuario o contraseña incorrectos.");
                     }
                     break;
@@ -224,7 +224,6 @@ public class Runner {
                                 }
                             }
                             break;
-                            //
                         case 4:
 
                             System.out.println("Ingrese el número del álbum para comentar (0 para cancelar):");
