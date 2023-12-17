@@ -212,9 +212,38 @@ public class Runner {
                   System.out.println(i + ". " + album.getNombre());
                   i++;
                 }
-                System.out.println(
-                  "ingrese el album para mostrar la informacion"
+                System.out.print(
+                  "Ingrese el número del álbum para ver los detalles: "
                 );
+                int numeroAlbum = scanner.nextInt();
+                scanner.nextLine(); // Consumir la nueva línea pendiente
+
+                // Verificar si el número del álbum es válido
+                if (numeroAlbum >= 1 && numeroAlbum <= listaAlbumes.size()) {
+                  Album albumSeleccionado = listaAlbumes.get(numeroAlbum - 1);
+                  // Aquí puedes mostrar los detalles del álbum seleccionado
+                  System.out.println("Detalles del Álbum:");
+                  System.out.println(
+                    "Nombre: " + albumSeleccionado.getNombre()
+                  );
+                  System.out.println(
+                    "Portada: " + albumSeleccionado.getPortada()
+                  );
+                  System.out.println(
+                    "Descripcion: " + albumSeleccionado.getDescripcion()
+                  );
+                  System.out.println(
+                    "Fecha Lanzamiento : " + albumSeleccionado.getFechaLanzamiento()
+                  );
+                  System.out.println(
+                    "Genero : " + albumSeleccionado.getGenero()
+                  );
+                  System.out.println(
+                    "Etiqueta de Registro : " + albumSeleccionado.getEtiquetaRegistro()
+                  );
+                } else {
+                  System.out.println("Número de álbum no válido.");
+                }
               } else {
                 System.out.println("La lista de álbumes está vacía.");
                 // Preguntar si desea agregar un álbum
