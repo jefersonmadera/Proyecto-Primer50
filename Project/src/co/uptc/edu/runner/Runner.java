@@ -71,27 +71,41 @@ public class Runner {
                     String nombreUsuarioRegistro;
                     do {
                         System.out.println("Ingrese el nombre de usuario:");
-                        nombreUsuarioRegistro = scanner.nextLine(); // Use nextLine() to get the full line of input
+                        nombreUsuarioRegistro = scanner.nextLine(); // Utilice nextLine() para obtener la línea completa de entrada
                         if (nombreUsuarioRegistro.trim().isEmpty()) {
                             System.out.println("¡Error! El nombre de usuario no puede estar vacío.");
                         }
                     } while (nombreUsuarioRegistro.trim().isEmpty());
-
-                    //ingreso de contraseña
+                    //Ingreso de contraseña
                     do {
-                        System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
+                        System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minuscuala y 8 caracteres): ");
                         String contrasenaRegistro = scanner.nextLine();
 
+<<<<<<<<< Temporary merge branch 1
+                    System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
+                    String contrasenaRegistro = scanner.nextLine();
+
+                    if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
+                        System.out.println("Registro exitoso.");
+                    } else {
+                        System.out.println("Error al registrar el usuario.");
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Saliendo del programa. ¡Hasta luego!");
+=========
                         if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
                             System.out.println("Registro exitoso.");
                             break;
                         } else {
-                            System.out.println("Error en la contraseña. Intente nuevamente");
+                            System.out.println("Error en la contraseña verifique que cumpla con los parametros. Intentalo nuevamente");
                         }
-                    }while(true);
+                    }while (true);
 
                 case 0:
-                    System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►");
+                    System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►");
+>>>>>>>>> Temporary merge branch 2
                     break;
 
                 default:
