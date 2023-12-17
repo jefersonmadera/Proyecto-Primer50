@@ -61,7 +61,7 @@ public class Runner {
                     if (accesControl.iniciarSesion(nombreUsuario, contrasena)) {
                         System.out.println("Inicio de sesión exitoso.");
                         inicioSesion = true;
-                    } else  {
+                    } else {
                         System.out.println("Usuario o contraseña incorrectos.");
                     }
                     break;
@@ -71,24 +71,26 @@ public class Runner {
                     String nombreUsuarioRegistro;
                     do {
                         System.out.println("Ingrese el nombre de usuario:");
-                        nombreUsuarioRegistro = scanner.nextLine(); // Use nextLine() to get the full line of input
-                        if (nombreUsuarioRegistro.trim().isEmpty()){
+                        nombreUsuarioRegistro = scanner.nextLine(); // Utilice nextLine() para obtener la línea completa de entrada
+                        if (nombreUsuarioRegistro.trim().isEmpty()) {
                             System.out.println("¡Error! El nombre de usuario no puede estar vacío.");
                         }
-                    } while(nombreUsuarioRegistro.trim().isEmpty());
+                    } while (nombreUsuarioRegistro.trim().isEmpty());
+                    //Ingreso de contraseña
+                    do {
+                        System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minuscuala y 8 caracteres): ");
+                        String contrasenaRegistro = scanner.nextLine();
 
-                    System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
-                    String contrasenaRegistro = scanner.nextLine();
-
-                    if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
-                        System.out.println("Registro exitoso.");
-                    } else {
-                        System.out.println("Error al registrar el usuario.");
-                    }
-                    break;
+                        if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
+                            System.out.println("Registro exitoso.");
+                            break;
+                        } else {
+                            System.out.println("Error en la contraseña verifique que cumpla con los parametros. Intentalo nuevamente");
+                        }
+                    }while (true);
 
                 case 0:
-                    System.out.println("Saliendo del programa. ¡Hasta luego!");
+                    System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►");
                     break;
 
                 default:
@@ -224,7 +226,6 @@ public class Runner {
                                 }
                             }
                             break;
-                            //
                         case 4:
 
                             System.out.println("Ingrese el número del álbum para comentar (0 para cancelar):");
