@@ -77,18 +77,20 @@ public class Runner {
                         }
                     } while(nombreUsuarioRegistro.trim().isEmpty());
                     //Logica para validacion de la contraseña
-                    System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
-                    String contrasenaRegistro = scanner.nextLine();
+                    do {
+                        System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
+                        String contrasenaRegistro = scanner.nextLine();
 
-                    if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
-                        System.out.println("Registro exitoso.");
-                    } else {
-                        System.out.println("Error al registrar el usuario.");
-                    }
-                    break;
+                        if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
+                            System.out.println("Registro exitoso.");
+                            break;
+                        } else {
+                            System.out.println("Error en contraseña.Intentelo nuevamente");
+                        }
+                    }while (true);
 
                 case 0:
-                    System.out.println("Saliendo del programa. ¡Hasta luego!");
+                    System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►");
                     break;
 
                 default:
