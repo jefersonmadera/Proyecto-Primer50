@@ -71,26 +71,27 @@ public class Runner {
                     String nombreUsuarioRegistro;
                     do {
                         System.out.println("Ingrese el nombre de usuario:");
-                        nombreUsuarioRegistro = scanner.nextLine(); // Utilice nextLine() para obtener la línea completa de entrada
+                        nombreUsuarioRegistro = scanner.nextLine(); // Use nextLine() to get the full line of input
                         if (nombreUsuarioRegistro.trim().isEmpty()) {
                             System.out.println("¡Error! El nombre de usuario no puede estar vacío.");
                         }
                     } while (nombreUsuarioRegistro.trim().isEmpty());
-                    //Ingreso de contraseña
+
+                    //ingreso de contraseña
                     do {
-                        System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minuscuala y 8 caracteres): ");
+                        System.out.println("Ingrese la contraseña (La contraseña debe tener por lo menos una mayuscula una minucuala y 8 caracteres): ");
                         String contrasenaRegistro = scanner.nextLine();
 
                         if (accesControl.registrarUsuario(nombreUsuarioRegistro, contrasenaRegistro)) {
                             System.out.println("Registro exitoso.");
                             break;
                         } else {
-                            System.out.println("Error en la contraseña verifique que cumpla con los parametros. Intentalo nuevamente");
+                            System.out.println("Error en la contraseña. Intente nuevamente");
                         }
-                    }while (true);
+                    }while(true);
 
                 case 0:
-                    System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►");
+                    System.out.println("►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►");
                     break;
 
                 default:
