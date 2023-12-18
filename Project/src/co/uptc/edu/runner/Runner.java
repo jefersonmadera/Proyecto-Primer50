@@ -10,7 +10,6 @@ import co.uptc.edu.controller.ComentariosControl;
 import co.uptc.edu.controller.PremiosControl;
 import co.uptc.edu.model.Album;
 import co.uptc.edu.model.Artista;
-import co.uptc.edu.model.Banda;
 import co.uptc.edu.model.Cancion;
 import co.uptc.edu.model.Colector;
 import co.uptc.edu.model.Comentario;
@@ -33,8 +32,6 @@ public class Runner {
     ArrayList<Album> listaAlbumes = albumControl.getAlbums();
     ArrayList<Colector> listaColeccionistas = coleccionistaControl.obtenerListaColeccionistas();
     AccesControl accesControl = new AccesControl();
-    CancionControl cancionControl = new CancionControl();
-    BandaControl bandaControl = new BandaControl();
     PremiosControl premiosControl = new PremiosControl();
 
     int opcion;
