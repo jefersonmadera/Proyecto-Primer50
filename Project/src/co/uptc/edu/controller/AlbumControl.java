@@ -1,14 +1,19 @@
 package co.uptc.edu.controller;
 
 import co.uptc.edu.model.Album;
-
+import co.uptc.edu.model.Cancion;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AlbumControl {
     private ArrayList<Album> albums;
+    private Map<Album, List<Cancion>> albumCancionesMap;
 
     public AlbumControl() {
-        albums = new ArrayList<Album>();
+        albums = new ArrayList<>();
+        albumCancionesMap = new HashMap<>();
     }
 
     public ArrayList<Album> getAlbums() {
@@ -18,6 +23,7 @@ public class AlbumControl {
     public boolean añadirAlbum(Album album) {
         if (!albums.contains(album)) {
             albums.add(album);
+            albumCancionesMap.put(album, new ArrayList<>()); // Initialize the list of songs for the album
             return true;
         } else {
             return false;
@@ -28,8 +34,15 @@ public class AlbumControl {
         return albums.removeIf(album -> album.getNombre().equals(nombre));
     }
 
+    public void agregarCancion(Album album, Cancion cancion) {
+        if (albumCancionesMap.containsKey(album)) {
+            List<Cancion> canciones = albumCancionesMap.get(album);
+            canciones.add(cancion);
+        }
+    }
+
     public void actualizarAlbum(Album album, String portada, String nombre, String descripcion, String fechaLanzamiento,
-            String genero, String etiquetaRegistro) throws IllegalArgumentException {
+                                String genero, String etiquetaRegistro) throws IllegalArgumentException {
         try {
             album.setDescripcion(descripcion);
             album.setEtiquetaRegistro(etiquetaRegistro);
@@ -62,5 +75,4 @@ public class AlbumControl {
         }
         return listaAlbumes.toString();
     }
-
 }
