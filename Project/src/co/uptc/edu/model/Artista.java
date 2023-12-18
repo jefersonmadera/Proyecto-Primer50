@@ -5,11 +5,21 @@ public class Artista {
   String nombre;
   String descripcion;
   String id_artista;
+  private Banda banda;
+  private Musico musico;
 
   public Artista(String nombre, String descripcion, String id_artista) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.id_artista = id_artista;
+  }
+
+  public Banda getBanda() {
+    return banda;
+  }
+
+  public Musico getMusico() {
+    return musico;
   }
 
   public String getNombre() {
