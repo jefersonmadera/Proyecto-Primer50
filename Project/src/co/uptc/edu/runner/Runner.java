@@ -83,7 +83,7 @@ public class Runner {
                     String nombreUsuarioRegistro;
                     do {
                         System.out.println("Ingrese el nombre de usuario:");
-                        nombreUsuarioRegistro = scanner.nextLine(); // Use nextLine() to get the full line of input
+                        nombreUsuarioRegistro = scanner.nextLine(); // Utilice nextLine() para obtener la línea completa de entrada
                         if (nombreUsuarioRegistro.trim().isEmpty()) {
                             System.out.println(
                                     "¡Error! El nombre de usuario no puede estar vacío."
