@@ -1044,6 +1044,7 @@ public class Runner {
           System.out.println("0. Volver al Menú Principal");
 
           int opcionColeccionista = scanner.nextInt();
+          scanner.nextLine(); // Consumir la nueva línea pendiente
 
           switch (opcionColeccionista) {
             case 1:
@@ -1063,15 +1064,20 @@ public class Runner {
               }
               break;
             case 2:
-              // Obtener la lista de coleccionistas
-              listaColeccionistas =
-                coleccionistaControl.obtenerListaColeccionistas();
-              System.out.println(
-                "numero de coleccionistas: " + listaColeccionistas.size()
-              );
-              // Lógica para mostrar lista de coleccionistas
-              for (Colector coleccionista : listaColeccionistas) {
-                System.out.println(coleccionista.getName());
+              if (listaColeccionistas.isEmpty()) {
+                System.out.println("La lista de coleccionistas está vacía.");
+              } else {
+                // Obtener la lista de coleccionistas
+                listaColeccionistas =
+                  coleccionistaControl.obtenerListaColeccionistas();
+                System.out.println(
+                  "numero de coleccionistas: " + listaColeccionistas.size()
+                );
+                // Lógica para mostrar lista de coleccionistas
+                for (Colector coleccionista : listaColeccionistas) {
+                  System.out.println(coleccionista.getName());
+                }
+                break;
               }
               break;
             case 3:
@@ -1091,6 +1097,7 @@ public class Runner {
                   "Ingrese el número del coleccionista a eliminar (0 para cancelar): "
                 );
                 int numeroEliminarColeccionista = scanner.nextInt();
+                scanner.nextLine(); // Consumir la nueva línea pendiente
 
                 if (
                   numeroEliminarColeccionista >= 1 &&
