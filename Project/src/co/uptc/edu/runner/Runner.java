@@ -114,6 +114,7 @@ public class Runner {
 
                             if (opcion != 0 && opcion!=1) {
                                 System.out.println("OPCIÓN INVALIDA");
+                                break;
                             }
                         }
                     } while (opcion!=0);
