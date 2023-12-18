@@ -83,7 +83,7 @@ public class Runner {
                     String nombreUsuarioRegistro;
                     do {
                         System.out.println("Ingrese el nombre de usuario:");
-                        nombreUsuarioRegistro = scanner.nextLine(); // Use nextLine() to get the full line of input
+                        nombreUsuarioRegistro = scanner.nextLine(); // Utilice nextLine() para obtener la línea completa de entrada
                         if (nombreUsuarioRegistro.trim().isEmpty()) {
                             System.out.println(
                                     "¡Error! El nombre de usuario no puede estar vacío."
@@ -161,29 +161,11 @@ public class Runner {
                             String etiquetaRegistroAlbum = scanner.nextLine();
 
                             // Validate input
-                            if (
-                                    nombreAlbum.isEmpty() ||
-                                            portadaAlbum.isEmpty() ||
-                                            descripcionAlbum.isEmpty() ||
-                                            fechaLanzamientoAlbum.isEmpty() ||
-                                            generoAlbum.isEmpty() ||
-                                            etiquetaRegistroAlbum.isEmpty()
-                            ) {
-                                System.out.println(
-                                        "Ningún campo debe quedar vacío. Inténtelo de nuevo."
-                                );
+                            if (nombreAlbum.isEmpty() || portadaAlbum.isEmpty() || descripcionAlbum.isEmpty() || fechaLanzamientoAlbum.isEmpty() || generoAlbum.isEmpty() || etiquetaRegistroAlbum.isEmpty()) {
+                                System.out.println("Ningún campo debe quedar vacío. Inténtelo de nuevo.");
                             } else {
                                 // Lógica para añadir el álbum usando el método añadirAlbum de AlbumControl
-                                albumControl.añadirAlbum(
-                                        new Album(
-                                                portadaAlbum,
-                                                nombreAlbum,
-                                                descripcionAlbum,
-                                                fechaLanzamientoAlbum,
-                                                generoAlbum,
-                                                etiquetaRegistroAlbum
-                                        )
-                                );
+                                albumControl.añadirAlbum(new Album(portadaAlbum, nombreAlbum, descripcionAlbum, fechaLanzamientoAlbum, generoAlbum, etiquetaRegistroAlbum));
                                 System.out.println("Álbum añadido exitosamente.");
                             }
 
@@ -198,46 +180,32 @@ public class Runner {
                                     i++;
                                 }
 
-                                // Input validation for a valid integer
+                                // valida que la entrada sea un entero
                                 try {
                                     System.out.print(
                                             "Ingrese el número del álbum para mostrar la información: "
                                     );
                                     int albumIndex = scanner.nextInt();
-                                    scanner.nextLine(); // consume the newline character
-
-                                    // Validate the chosen album index
+                                    scanner.nextLine(); // consumir el carácter de nueva línea
+                                    //Validar el índice del álbum elegido
                                     if (albumIndex >= 1 && albumIndex <= listaAlbumes.size()) {
                                         Album selectedAlbum = listaAlbumes.get(albumIndex - 1);
 
-                                        // Display information about the selected album
+                                        // Mostrar información sobre el álbum seleccionado
                                         System.out.println("Información del Álbum:");
                                         System.out.println("Nombre: " + selectedAlbum.getNombre());
-                                        System.out.println(
-                                                "Portada: " + selectedAlbum.getPortada()
-                                        );
-                                        System.out.println(
-                                                "Descripción: " + selectedAlbum.getDescripcion()
-                                        );
-                                        System.out.println(
-                                                "Fecha Lanzamiento: " +
-                                                        selectedAlbum.getFechaLanzamiento()
-                                        );
+                                        System.out.println("Portada: " + selectedAlbum.getPortada());
+                                        System.out.println("Descripción: " + selectedAlbum.getDescripcion());
+                                        System.out.println("Fecha Lanzamiento: " + selectedAlbum.getFechaLanzamiento());
                                         System.out.println("Genero: " + selectedAlbum.getGenero());
-                                        System.out.println(
-                                                "Etiqueta de Registro: " +
-                                                        selectedAlbum.getEtiquetaRegistro()
-                                        );
-                                        // ... (display other album information)
-
+                                        System.out.println("Etiqueta de Registro: " + selectedAlbum.getEtiquetaRegistro());
+                                        // ... (muestra otra información del álbum)
                                     } else {
-                                        System.out.println(
-                                                "Número de álbum no válido. Inténtelo de nuevo."
-                                        );
+                                        System.out.println("Número de álbum no válido. Inténtelo de nuevo.");
                                     }
                                 } catch (InputMismatchException e) {
                                     System.out.println("Ingrese un número válido.");
-                                    // Optionally, you might want to clear the buffer to avoid an infinite loop
+                                    // Opcionalmente, es posible que desees borrar el búfer para evitar un bucle infinito.
                                     scanner.nextLine();
                                 }
                             } else {
@@ -251,7 +219,7 @@ public class Runner {
                                 scanner.nextLine(); // Consumir la nueva línea pendiente
 
                                 if (agregarNuevoAlbum == 1) {
-                                    // Logic to add a new album
+                                    // Lógica para agregar un nuevo álbum
                                     System.out.println("Ingrese los datos del álbum:");
 
                                     System.out.print("Nombre del álbum: ");
@@ -272,30 +240,12 @@ public class Runner {
                                     System.out.print("Etiqueta Registro del álbum: ");
                                     String etiquetaRegistroAlbumNuevo = scanner.nextLine();
 
-                                    // Validate input
-                                    if (
-                                            nombreAlbumNuevo.isEmpty() ||
-                                                    portadaAlbumNuevo.isEmpty() ||
-                                                    descripcionAlbumNuevo.isEmpty() ||
-                                                    fechaLanzamientoAlbumNuevo.isEmpty() ||
-                                                    generoAlbumNuevo.isEmpty() ||
-                                                    etiquetaRegistroAlbumNuevo.isEmpty()
-                                    ) {
-                                        System.out.println(
-                                                "Ningún campo debe quedar vacío. Inténtelo de nuevo."
-                                        );
+                                    // validar entrada
+                                    if (nombreAlbumNuevo.isEmpty() || portadaAlbumNuevo.isEmpty() || descripcionAlbumNuevo.isEmpty() || fechaLanzamientoAlbumNuevo.isEmpty() || generoAlbumNuevo.isEmpty() || etiquetaRegistroAlbumNuevo.isEmpty()) {
+                                        System.out.println("Ningún campo debe quedar vacío. Inténtelo de nuevo.");
                                     } else {
-                                        // Logic to add the album using the añadirAlbum method of AlbumControl
-                                        albumControl.añadirAlbum(
-                                                new Album(
-                                                        portadaAlbumNuevo,
-                                                        nombreAlbumNuevo,
-                                                        descripcionAlbumNuevo,
-                                                        fechaLanzamientoAlbumNuevo,
-                                                        generoAlbumNuevo,
-                                                        etiquetaRegistroAlbumNuevo
-                                                )
-                                        );
+                                        // Lógica para agregar el álbum usando el método añadirAlbum de AlbumControl
+                                        albumControl.añadirAlbum(new Album(portadaAlbumNuevo, nombreAlbumNuevo, descripcionAlbumNuevo, fechaLanzamientoAlbumNuevo, generoAlbumNuevo, etiquetaRegistroAlbumNuevo));
                                         System.out.println("Álbum añadido exitosamente.");
                                     }
                                     break;
@@ -303,7 +253,7 @@ public class Runner {
                             }
                             break;
                         case 3:
-                            // Display the list of albums with numbers
+                            // Mostrar la lista de álbumes con números.
                             System.out.println("Lista de Álbumes:");
                             int i = 1;
                             for (Album album : listaAlbumes) {
@@ -311,9 +261,7 @@ public class Runner {
                                 i++;
                             }
 
-                            System.out.println(
-                                    "Ingrese el número del álbum a eliminar (0 para cancelar): "
-                            );
+                            System.out.println("Ingrese el número del álbum a eliminar (0 para cancelar): ");
                             int numeroEliminar = scanner.nextInt();
                             scanner.nextLine(); // consume the newline character
 
