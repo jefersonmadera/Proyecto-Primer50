@@ -44,26 +44,26 @@ public class Runner {
       opcion = scanner.nextInt();
       scanner.nextLine();
 
-      switch (opcion) {
-        case 1:
-          // verificar si hay usuarios registrados
-          if (accesControl.getUsuarios().isEmpty()) {
-            System.out.println(
-              "►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►"
-            );
-            System.out.println(
-              "No hay usuarios registrados. (Intente nuevamente)"
-            );
-            System.out.println(
-              "►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►"
-            );
-            break;
-          }
-          // Lógica para iniciar sesión
-          System.out.println("Ingrese el nombre de usuario: ");
-          String nombreUsuario = scanner.next();
-          System.out.println("Ingrese la contraseña: ");
-          String contrasena = scanner.next();
+            switch (opcion) {
+                case 1:
+                    // verificar si hay usuarios registrados
+                    if (accesControl.getUsuarios().isEmpty()) {
+                        System.out.println(
+                                "►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►"
+                        );
+                        System.out.println(
+                                "No hay usuarios registrados. (Intente nuevamente)"
+                        );
+                        System.out.println(
+                                "►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►►"
+                        );
+                        break;
+                    }
+                    // Lógica para iniciar sesión
+                    System.out.println("Ingrese el nombre de usuario: ");
+                    String nombreUsuario = scanner.next();
+                    System.out.println("Ingrese la contraseña: ");
+                    String contrasena = scanner.next();
 
           if (accesControl.iniciarSesion(nombreUsuario, contrasena)) {
             System.out.println("Inicio de sesión exitoso.");
@@ -154,19 +154,16 @@ public class Runner {
       System.out.println("0. Salir");
       System.out.print("Seleccione una opción: ");
 
-      opcion = scanner.nextInt();
-      switch (opcion) {
-        case 1:
-        
-            
-        
-          // Llamar a métodos de control de álbumes
-          System.out.println("1. Añadir Álbum");
-          System.out.println("2. Mostrar Lista de Álbumes");
-          System.out.println("3. Eliminar Álbum");
-          System.out.println("4. Comentar Álbum");
-          System.out.println("5. Menu Canciones");
-          System.out.println("0. Volver al Menú Principal");
+            opcion = scanner.nextInt();
+            switch (opcion) {
+                case 1:
+                    // Llamar a métodos de control de álbumes
+                    System.out.println("1. Añadir Álbum");
+                    System.out.println("2. Mostrar Lista de Álbumes");
+                    System.out.println("3. Eliminar Álbum");
+                    System.out.println("4. Comentar Álbum");
+                    System.out.println("5. Menu Canciones");
+                    System.out.println("0. Volver al Menú Principal");
 
           int opcionAlbum = scanner.nextInt();
           scanner.nextLine(); // Consumir la nueva línea pendiente
@@ -196,32 +193,32 @@ public class Runner {
               System.out.print("Etiqueta Registro del álbum: ");
               String etiquetaRegistroAlbum = scanner.nextLine();
 
-              // Validate input
-              if (
-                nombreAlbum.isEmpty() ||
-                portadaAlbum.isEmpty() ||
-                descripcionAlbum.isEmpty() ||
-                fechaLanzamientoAlbum.isEmpty() ||
-                generoAlbum.isEmpty() ||
-                etiquetaRegistroAlbum.isEmpty()
-              ) {
-                System.out.println(
-                  "Ningún campo debe quedar vacío. Inténtelo de nuevo."
-                );
-              } else {
-                // Lógica para añadir el álbum usando el método añadirAlbum de AlbumControl
-                albumControl.añadirAlbum(
-                  new Album(
-                    portadaAlbum,
-                    nombreAlbum,
-                    descripcionAlbum,
-                    fechaLanzamientoAlbum,
-                    generoAlbum,
-                    etiquetaRegistroAlbum
-                  )
-                );
-                System.out.println("Álbum añadido exitosamente.");
-              }
+                            // Validate input
+                            if (
+                                    nombreAlbum.isEmpty() ||
+                                            portadaAlbum.isEmpty() ||
+                                            descripcionAlbum.isEmpty() ||
+                                            fechaLanzamientoAlbum.isEmpty() ||
+                                            generoAlbum.isEmpty() ||
+                                            etiquetaRegistroAlbum.isEmpty()
+                            ) {
+                                System.out.println(
+                                        "Ningún campo debe quedar vacío. Inténtelo de nuevo."
+                                );
+                            } else {
+                                // Lógica para añadir el álbum usando el método añadirAlbum de AlbumControl
+                                albumControl.añadirAlbum(
+                                        new Album(
+                                                portadaAlbum,
+                                                nombreAlbum,
+                                                descripcionAlbum,
+                                                fechaLanzamientoAlbum,
+                                                generoAlbum,
+                                                etiquetaRegistroAlbum
+                                        )
+                                );
+                                System.out.println("Álbum añadido exitosamente.");
+                            }
 
               break;
             case 2:
@@ -234,57 +231,57 @@ public class Runner {
                   i++;
                 }
 
-                // Input validation for a valid integer
-                try {
-                  System.out.print(
-                    "Ingrese el número del álbum para mostrar la información: "
-                  );
-                  int albumIndex = scanner.nextInt();
-                  scanner.nextLine(); // consume the newline character
+                                // Input validation for a valid integer
+                                try {
+                                    System.out.print(
+                                            "Ingrese el número del álbum para mostrar la información: "
+                                    );
+                                    int albumIndex = scanner.nextInt();
+                                    scanner.nextLine(); // consume the newline character
 
                   // Validate the chosen album index
                   if (albumIndex >= 1 && albumIndex <= listaAlbumes.size()) {
                     Album selectedAlbum = listaAlbumes.get(albumIndex - 1);
 
-                    // Display information about the selected album
-                    System.out.println("Información del Álbum:");
-                    System.out.println("Nombre: " + selectedAlbum.getNombre());
-                    System.out.println(
-                      "Portada: " + selectedAlbum.getPortada()
-                    );
-                    System.out.println(
-                      "Descripción: " + selectedAlbum.getDescripcion()
-                    );
-                    System.out.println(
-                      "Fecha Lanzamiento: " +
-                      selectedAlbum.getFechaLanzamiento()
-                    );
-                    System.out.println("Genero: " + selectedAlbum.getGenero());
-                    System.out.println(
-                      "Etiqueta de Registro: " +
-                      selectedAlbum.getEtiquetaRegistro()
-                    );
-                    // ... (display other album information)
+                                        // Display information about the selected album
+                                        System.out.println("Información del Álbum:");
+                                        System.out.println("Nombre: " + selectedAlbum.getNombre());
+                                        System.out.println(
+                                                "Portada: " + selectedAlbum.getPortada()
+                                        );
+                                        System.out.println(
+                                                "Descripción: " + selectedAlbum.getDescripcion()
+                                        );
+                                        System.out.println(
+                                                "Fecha Lanzamiento: " +
+                                                        selectedAlbum.getFechaLanzamiento()
+                                        );
+                                        System.out.println("Genero: " + selectedAlbum.getGenero());
+                                        System.out.println(
+                                                "Etiqueta de Registro: " +
+                                                        selectedAlbum.getEtiquetaRegistro()
+                                        );
+                                        // ... (display other album information)
 
-                  } else {
-                    System.out.println(
-                      "Número de álbum no válido. Inténtelo de nuevo."
-                    );
-                  }
-                } catch (InputMismatchException e) {
-                  System.out.println("Ingrese un número válido.");
-                  // Optionally, you might want to clear the buffer to avoid an infinite loop
-                  scanner.nextLine();
-                }
-              } else {
-                System.out.println("La lista de álbumes está vacía.");
+                                    } else {
+                                        System.out.println(
+                                                "Número de álbum no válido. Inténtelo de nuevo."
+                                        );
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Ingrese un número válido.");
+                                    // Optionally, you might want to clear the buffer to avoid an infinite loop
+                                    scanner.nextLine();
+                                }
+                            } else {
+                                System.out.println("La lista de álbumes está vacía.");
 
-                // Ask if the user wants to add a new album
-                System.out.print(
-                  "¿Desea agregar un nuevo álbum? (1: Sí, 0: No): "
-                );
-                int agregarNuevoAlbum = scanner.nextInt();
-                scanner.nextLine(); // Consumir la nueva línea pendiente
+                                // Ask if the user wants to add a new album
+                                System.out.print(
+                                        "¿Desea agregar un nuevo álbum? (1: Sí, 0: No): "
+                                );
+                                int agregarNuevoAlbum = scanner.nextInt();
+                                scanner.nextLine(); // Consumir la nueva línea pendiente
 
                 if (agregarNuevoAlbum == 1) {
                   // Logic to add a new album
@@ -308,101 +305,101 @@ public class Runner {
                   System.out.print("Etiqueta Registro del álbum: ");
                   String etiquetaRegistroAlbumNuevo = scanner.nextLine();
 
-                  // Validate input
-                  if (
-                    nombreAlbumNuevo.isEmpty() ||
-                    portadaAlbumNuevo.isEmpty() ||
-                    descripcionAlbumNuevo.isEmpty() ||
-                    fechaLanzamientoAlbumNuevo.isEmpty() ||
-                    generoAlbumNuevo.isEmpty() ||
-                    etiquetaRegistroAlbumNuevo.isEmpty()
-                  ) {
-                    System.out.println(
-                      "Ningún campo debe quedar vacío. Inténtelo de nuevo."
-                    );
-                  } else {
-                    // Logic to add the album using the añadirAlbum method of AlbumControl
-                    albumControl.añadirAlbum(
-                      new Album(
-                        portadaAlbumNuevo,
-                        nombreAlbumNuevo,
-                        descripcionAlbumNuevo,
-                        fechaLanzamientoAlbumNuevo,
-                        generoAlbumNuevo,
-                        etiquetaRegistroAlbumNuevo
-                      )
-                    );
-                    System.out.println("Álbum añadido exitosamente.");
-                  }
-                  break;
-                }
-              }
-              break;
-            case 3:
-              if (listaAlbumes.isEmpty()) {
-                System.out.println("La lista de álbumes está vacía.");
-              } else {
-                // Display the list of albums with numbers
-                System.out.println("Lista de Álbumes:");
-                int i = 1;
-                for (Album album : listaAlbumes) {
-                  System.out.println(i + ". " + album.getNombre());
-                  i++;
-                }
+                                    // Validate input
+                                    if (
+                                            nombreAlbumNuevo.isEmpty() ||
+                                                    portadaAlbumNuevo.isEmpty() ||
+                                                    descripcionAlbumNuevo.isEmpty() ||
+                                                    fechaLanzamientoAlbumNuevo.isEmpty() ||
+                                                    generoAlbumNuevo.isEmpty() ||
+                                                    etiquetaRegistroAlbumNuevo.isEmpty()
+                                    ) {
+                                        System.out.println(
+                                                "Ningún campo debe quedar vacío. Inténtelo de nuevo."
+                                        );
+                                    } else {
+                                        // Logic to add the album using the añadirAlbum method of AlbumControl
+                                        albumControl.añadirAlbum(
+                                                new Album(
+                                                        portadaAlbumNuevo,
+                                                        nombreAlbumNuevo,
+                                                        descripcionAlbumNuevo,
+                                                        fechaLanzamientoAlbumNuevo,
+                                                        generoAlbumNuevo,
+                                                        etiquetaRegistroAlbumNuevo
+                                                )
+                                        );
+                                        System.out.println("Álbum añadido exitosamente.");
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                        case 3:
+                            if (listaAlbumes.isEmpty()) {
+                                System.out.println("La lista de álbumes está vacía.");
+                            } else {
+                                // Display the list of albums with numbers
+                                System.out.println("Lista de Álbumes:");
+                                int i = 1;
+                                for (Album album : listaAlbumes) {
+                                    System.out.println(i + ". " + album.getNombre());
+                                    i++;
+                                }
 
-                System.out.println(
-                  "Ingrese el número del álbum a eliminar (0 para cancelar): "
-                );
-                int numeroEliminar = scanner.nextInt();
-                scanner.nextLine(); // consume the newline character
+                                System.out.println(
+                                        "Ingrese el número del álbum a eliminar (0 para cancelar): "
+                                );
+                                int numeroEliminar = scanner.nextInt();
+                                scanner.nextLine(); // consume the newline character
 
-                if (numeroEliminar == 0) {
-                  System.out.println("Operación cancelada.");
-                } else if (
-                  numeroEliminar >= 1 && numeroEliminar <= listaAlbumes.size()
-                ) {
-                  // Utilize the método eliminarAlbum of AlbumControl with the index
-                  if (
-                    albumControl.eliminarAlbum(
-                      listaAlbumes.get(numeroEliminar - 1).getNombre()
-                    )
-                  ) {
-                    System.out.println("Álbum eliminado exitosamente.");
-                  } else {
-                    System.out.println(
-                      "El álbum no se encontró en la lista o no se pudo eliminar."
-                    );
-                  }
-                } else {
-                  System.out.println("Número no válido. Inténtelo de nuevo.");
-                }
-                break;
-              }
-            case 4:
-              if (listaAlbumes.isEmpty()) {
-                System.out.println("La lista de álbumes está vacía.");
-              } else {
-                // Display the list of albums
-                System.out.println("Lista de Álbumes:");
-                int albumIndex = 1;
-                for (Album album : listaAlbumes) {
-                  System.out.println(albumIndex + ". " + album.getNombre());
-                  albumIndex++;
-                }
+                                if (numeroEliminar == 0) {
+                                    System.out.println("Operación cancelada.");
+                                } else if (
+                                        numeroEliminar >= 1 && numeroEliminar <= listaAlbumes.size()
+                                ) {
+                                    // Utilize the método eliminarAlbum of AlbumControl with the index
+                                    if (
+                                            albumControl.eliminarAlbum(
+                                                    listaAlbumes.get(numeroEliminar - 1).getNombre()
+                                            )
+                                    ) {
+                                        System.out.println("Álbum eliminado exitosamente.");
+                                    } else {
+                                        System.out.println(
+                                                "El álbum no se encontró en la lista o no se pudo eliminar."
+                                        );
+                                    }
+                                } else {
+                                    System.out.println("Número no válido. Inténtelo de nuevo.");
+                                }
+                                break;
+                            }
+                        case 4:
+                            if (listaAlbumes.isEmpty()) {
+                                System.out.println("La lista de álbumes está vacía.");
+                            } else {
+                                // Display the list of albums
+                                System.out.println("Lista de Álbumes:");
+                                int albumIndex = 1;
+                                for (Album album : listaAlbumes) {
+                                    System.out.println(albumIndex + ". " + album.getNombre());
+                                    albumIndex++;
+                                }
 
-                System.out.println(
-                  "Ingrese el número del álbum (0 para cancelar):"
-                );
-                int numeroAlbumSeleccionado = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
+                                System.out.println(
+                                        "Ingrese el número del álbum (0 para cancelar):"
+                                );
+                                int numeroAlbumSeleccionado = scanner.nextInt();
+                                scanner.nextLine(); // Consume the newline character
 
-                if (
-                  numeroAlbumSeleccionado >= 1 &&
-                  numeroAlbumSeleccionado <= listaAlbumes.size()
-                ) {
-                  Album albumSeleccionado = listaAlbumes.get(
-                    numeroAlbumSeleccionado - 1
-                  );
+                                if (
+                                        numeroAlbumSeleccionado >= 1 &&
+                                                numeroAlbumSeleccionado <= listaAlbumes.size()
+                                ) {
+                                    Album albumSeleccionado = listaAlbumes.get(
+                                            numeroAlbumSeleccionado - 1
+                                    );
 
                   // Display additional options
                   System.out.println("Seleccione una opción:");
@@ -414,58 +411,58 @@ public class Runner {
                   int opcionComentarios = scanner.nextInt();
                   scanner.nextLine(); // Consume the newline character
 
-                  switch (opcionComentarios) {
-                    case 1:
-                      // Logic to add a comment
-                      System.out.println(
-                        "Ingrese su comentario para el álbum " +
-                        albumSeleccionado.getNombre() +
-                        ":"
-                      );
-                      String textoComentario = scanner.nextLine();
-                      System.out.println(
-                        "Ingrese el rating para el comentario (1-5):"
-                      );
-                      int ratingComentario = scanner.nextInt();
-                      Comentario nuevoComentario = new Comentario(
-                        textoComentario,
-                        ratingComentario
-                      );
+                                    switch (opcionComentarios) {
+                                        case 1:
+                                            // Logic to add a comment
+                                            System.out.println(
+                                                    "Ingrese su comentario para el álbum " +
+                                                            albumSeleccionado.getNombre() +
+                                                            ":"
+                                            );
+                                            String textoComentario = scanner.nextLine();
+                                            System.out.println(
+                                                    "Ingrese el rating para el comentario (1-5):"
+                                            );
+                                            int ratingComentario = scanner.nextInt();
+                                            Comentario nuevoComentario = new Comentario(
+                                                    textoComentario,
+                                                    ratingComentario
+                                            );
 
-                      // Implement comentariosControl method to add a comment
-                      comentariosControl.agregarComentario(
-                        albumSeleccionado,
-                        nuevoComentario
-                      );
+                                            // Implement comentariosControl method to add a comment
+                                            comentariosControl.agregarComentario(
+                                                    albumSeleccionado,
+                                                    nuevoComentario
+                                            );
 
-                      System.out.println("Comentario agregado exitosamente.");
-                      break;
-                    case 2:
-                      // Logic to delete a comment
-                      // Implement comentariosControl method to get comments for the selected album
-                      List<Comentario> comentariosAlbum = comentariosControl.obtenerComentarios(
-                        albumSeleccionado
-                      );
+                                            System.out.println("Comentario agregado exitosamente.");
+                                            break;
+                                        case 2:
+                                            // Logic to delete a comment
+                                            // Implement comentariosControl method to get comments for the selected album
+                                            List<Comentario> comentariosAlbum = comentariosControl.obtenerComentarios(
+                                                    albumSeleccionado
+                                            );
 
-                      if (!comentariosAlbum.isEmpty()) {
-                        System.out.println(
-                          "Lista de comentarios para el álbum " +
-                          albumSeleccionado.getNombre() +
-                          ":"
-                        );
-                        int idx = 1;
-                        for (Comentario comentario : comentariosAlbum) {
-                          System.out.println(
-                            idx + ". " + comentario.getDescripcion()
-                          );
-                          idx++;
-                        }
+                                            if (!comentariosAlbum.isEmpty()) {
+                                                System.out.println(
+                                                        "Lista de comentarios para el álbum " +
+                                                                albumSeleccionado.getNombre() +
+                                                                ":"
+                                                );
+                                                int idx = 1;
+                                                for (Comentario comentario : comentariosAlbum) {
+                                                    System.out.println(
+                                                            idx + ". " + comentario.getDescripcion()
+                                                    );
+                                                    idx++;
+                                                }
 
-                        System.out.println(
-                          "Ingrese el número del comentario a eliminar (0 para cancelar):"
-                        );
-                        int numeroComentarioEliminar = scanner.nextInt();
-                        scanner.nextLine(); // Consume the newline character
+                                                System.out.println(
+                                                        "Ingrese el número del comentario a eliminar (0 para cancelar):"
+                                                );
+                                                int numeroComentarioEliminar = scanner.nextInt();
+                                                scanner.nextLine(); // Consume the newline character
 
                         if (
                           numeroComentarioEliminar >= 1 &&
@@ -475,60 +472,60 @@ public class Runner {
                             numeroComentarioEliminar - 1
                           );
 
-                          // Implement comentariosControl method to delete a comment
-                          if (
-                            comentariosControl.eliminarComentario(
-                              albumSeleccionado,
-                              comentarioEliminar
-                            )
-                          ) {
-                            System.out.println(
-                              "Comentario eliminado exitosamente."
-                            );
-                          } else {
-                            System.out.println(
-                              "No se pudo eliminar el comentario."
-                            );
-                          }
-                        } else if (numeroComentarioEliminar == 0) {
-                          System.out.println("Operación cancelada.");
-                        } else {
-                          System.out.println(
-                            "Número no válido. Inténtelo de nuevo."
-                          );
-                        }
-                      } else {
-                        System.out.println(
-                          "No hay comentarios para este álbum."
-                        );
-                      }
-                      break;
-                    case 3:
-                      // Logic to update a comment
-                      // Implement comentariosControl method to get comments for the selected album
-                      List<Comentario> comentariosAlbumActualizar = comentariosControl.obtenerComentarios(
-                        albumSeleccionado
-                      );
+                                                    // Implement comentariosControl method to delete a comment
+                                                    if (
+                                                            comentariosControl.eliminarComentario(
+                                                                    albumSeleccionado,
+                                                                    comentarioEliminar
+                                                            )
+                                                    ) {
+                                                        System.out.println(
+                                                                "Comentario eliminado exitosamente."
+                                                        );
+                                                    } else {
+                                                        System.out.println(
+                                                                "No se pudo eliminar el comentario."
+                                                        );
+                                                    }
+                                                } else if (numeroComentarioEliminar == 0) {
+                                                    System.out.println("Operación cancelada.");
+                                                } else {
+                                                    System.out.println(
+                                                            "Número no válido. Inténtelo de nuevo."
+                                                    );
+                                                }
+                                            } else {
+                                                System.out.println(
+                                                        "No hay comentarios para este álbum."
+                                                );
+                                            }
+                                            break;
+                                        case 3:
+                                            // Logic to update a comment
+                                            // Implement comentariosControl method to get comments for the selected album
+                                            List<Comentario> comentariosAlbumActualizar = comentariosControl.obtenerComentarios(
+                                                    albumSeleccionado
+                                            );
 
-                      if (!comentariosAlbumActualizar.isEmpty()) {
-                        System.out.println(
-                          "Lista de comentarios para el álbum " +
-                          albumSeleccionado.getNombre() +
-                          ":"
-                        );
-                        int idx = 1;
-                        for (Comentario comentario : comentariosAlbumActualizar) {
-                          System.out.println(
-                            idx + ". " + comentario.getDescripcion()
-                          );
-                          idx++;
-                        }
+                                            if (!comentariosAlbumActualizar.isEmpty()) {
+                                                System.out.println(
+                                                        "Lista de comentarios para el álbum " +
+                                                                albumSeleccionado.getNombre() +
+                                                                ":"
+                                                );
+                                                int idx = 1;
+                                                for (Comentario comentario : comentariosAlbumActualizar) {
+                                                    System.out.println(
+                                                            idx + ". " + comentario.getDescripcion()
+                                                    );
+                                                    idx++;
+                                                }
 
-                        System.out.println(
-                          "Ingrese el número del comentario a actualizar (0 para cancelar):"
-                        );
-                        int numeroComentarioActualizar = scanner.nextInt();
-                        scanner.nextLine(); // Consume the newline character
+                                                System.out.println(
+                                                        "Ingrese el número del comentario a actualizar (0 para cancelar):"
+                                                );
+                                                int numeroComentarioActualizar = scanner.nextInt();
+                                                scanner.nextLine(); // Consume the newline character
 
                         if (
                           numeroComentarioActualizar >= 1 &&
@@ -539,23 +536,23 @@ public class Runner {
                             numeroComentarioActualizar - 1
                           );
 
-                          // Implement comentariosControl method to delete a comment
-                          if (
-                            comentariosControl.eliminarComentario(
-                              albumSeleccionado,
-                              comentarioActualizar
-                            )
-                          ) {
-                            System.out.println(
-                              "Ingrese su nuevo comentario para el álbum " +
-                              albumSeleccionado.getNombre() +
-                              ":"
-                            );
-                            String nuevoTextoComentario = scanner.nextLine();
-                            System.out.println(
-                              "Ingrese el nuevo rating para el comentario (1-5):"
-                            );
-                            int nuevoRatingComentario = scanner.nextInt();
+                                                    // Implement comentariosControl method to delete a comment
+                                                    if (
+                                                            comentariosControl.eliminarComentario(
+                                                                    albumSeleccionado,
+                                                                    comentarioActualizar
+                                                            )
+                                                    ) {
+                                                        System.out.println(
+                                                                "Ingrese su nuevo comentario para el álbum " +
+                                                                        albumSeleccionado.getNombre() +
+                                                                        ":"
+                                                        );
+                                                        String nuevoTextoComentario = scanner.nextLine();
+                                                        System.out.println(
+                                                                "Ingrese el nuevo rating para el comentario (1-5):"
+                                                        );
+                                                        int nuevoRatingComentario = scanner.nextInt();
 
                             Comentario nuevoComentarioActualizar = new Comentario(
                               nuevoTextoComentario,
@@ -676,106 +673,106 @@ public class Runner {
                       System.out.print("Duración de la canción: ");
                       String duracionCancion = scanner.nextLine();
 
-                      // Validate input
-                      if (
-                        nombreCancion.isEmpty() || duracionCancion.isEmpty()
-                      ) {
-                        System.out.println(
-                          "Ningún campo debe quedar vacío. Inténtelo de nuevo."
-                        );
-                      } else {
-                        // Logic to add the song using the añadirCancion method of AlbumControl
-                        albumControl.añadirCancion(
-                          albumSeleccionadoSongs,
-                          new Cancion(nombreCancion, duracionCancion)
-                        );
-                        System.out.println("Canción agregada exitosamente.");
-                      }
-                      break;
-                    case 2:
-                      // Logic to delete a song
-                      // Display the songs
-                      List<Cancion> cancionesAlbum = albumControl.obtenerCanciones(
-                        albumSeleccionadoSongs
-                      );
-                      if (!cancionesAlbum.isEmpty()) {
-                        System.out.println(
-                          "Lista de canciones para el álbum " +
-                          albumSeleccionadoSongs.getNombre() +
-                          ":"
-                        );
-                        int idx = 1;
-                        for (Cancion cancion : cancionesAlbum) {
-                          System.out.println(idx + ". " + cancion.getNombre());
-                          idx++;
-                        }
-                        System.out.println(
-                          "Ingrese el número de la canción a eliminar (0 para cancelar):"
-                        );
-                        int numeroCancionEliminar = scanner.nextInt();
-                        scanner.nextLine(); // Consume the newline character
-                        if (
-                          numeroCancionEliminar >= 1 &&
-                          numeroCancionEliminar <= cancionesAlbum.size()
-                        ) {
-                          Cancion cancionEliminar = cancionesAlbum.get(
-                            numeroCancionEliminar - 1
-                          );
-                          if (
-                            albumControl.eliminarCancion(
-                              albumSeleccionadoSongs,
-                              cancionEliminar
-                            )
-                          ) {
-                            System.out.println(
-                              "Canción eliminada exitosamente."
-                            );
-                          } else {
-                            System.out.println(
-                              "No se pudo eliminar la canción."
-                            );
-                          }
-                        } else if (numeroCancionEliminar == 0) {
-                          System.out.println("Operación cancelada.");
-                        } else {
-                          System.out.println(
-                            "Número no válido. Inténtelo de nuevo."
-                          );
-                        }
-                      } else {
-                        System.out.println("No hay canciones para este álbum.");
-                      }
-                      break;
-                    case 3:
-                      // Logic to update a song (similar to delete, then add)
-                      // Display the songs
-                      List<Cancion> cancionesAlbumActualizar = albumControl.obtenerCanciones(
-                        albumSeleccionadoSongs
-                      );
-                      if (!cancionesAlbumActualizar.isEmpty()) {
-                        System.out.println(
-                          "Lista de canciones para el álbum " +
-                          albumSeleccionadoSongs.getNombre() +
-                          ":"
-                        );
-                        int idx = 1;
-                        for (Cancion cancion : cancionesAlbumActualizar) {
-                          System.out.println(idx + ". " + cancion.getNombre());
-                          idx++;
-                        }
-                        System.out.println(
-                          "Ingrese el número de la canción a actualizar (0 para cancelar):"
-                        );
-                        int numeroCancionActualizar = scanner.nextInt();
-                        scanner.nextLine(); // Consume the newline character
-                        if (
-                          numeroCancionActualizar >= 1 &&
-                          numeroCancionActualizar <=
-                          cancionesAlbumActualizar.size()
-                        ) {
-                          Cancion cancionActualizar = cancionesAlbumActualizar.get(
-                            numeroCancionActualizar - 1
-                          );
+                                            // Validate input
+                                            if (
+                                                    nombreCancion.isEmpty() || duracionCancion.isEmpty()
+                                            ) {
+                                                System.out.println(
+                                                        "Ningún campo debe quedar vacío. Inténtelo de nuevo."
+                                                );
+                                            } else {
+                                                // Logic to add the song using the añadirCancion method of AlbumControl
+                                                albumControl.añadirCancion(
+                                                        albumSeleccionadoSongs,
+                                                        new Cancion(nombreCancion, duracionCancion)
+                                                );
+                                                System.out.println("Canción agregada exitosamente.");
+                                            }
+                                            break;
+                                        case 2:
+                                            // Logic to delete a song
+                                            // Display the songs
+                                            List<Cancion> cancionesAlbum = albumControl.obtenerCanciones(
+                                                    albumSeleccionadoSongs
+                                            );
+                                            if (!cancionesAlbum.isEmpty()) {
+                                                System.out.println(
+                                                        "Lista de canciones para el álbum " +
+                                                                albumSeleccionadoSongs.getNombre() +
+                                                                ":"
+                                                );
+                                                int idx = 1;
+                                                for (Cancion cancion : cancionesAlbum) {
+                                                    System.out.println(idx + ". " + cancion.getNombre());
+                                                    idx++;
+                                                }
+                                                System.out.println(
+                                                        "Ingrese el número de la canción a eliminar (0 para cancelar):"
+                                                );
+                                                int numeroCancionEliminar = scanner.nextInt();
+                                                scanner.nextLine(); // Consume the newline character
+                                                if (
+                                                        numeroCancionEliminar >= 1 &&
+                                                                numeroCancionEliminar <= cancionesAlbum.size()
+                                                ) {
+                                                    Cancion cancionEliminar = cancionesAlbum.get(
+                                                            numeroCancionEliminar - 1
+                                                    );
+                                                    if (
+                                                            albumControl.eliminarCancion(
+                                                                    albumSeleccionadoSongs,
+                                                                    cancionEliminar
+                                                            )
+                                                    ) {
+                                                        System.out.println(
+                                                                "Canción eliminada exitosamente."
+                                                        );
+                                                    } else {
+                                                        System.out.println(
+                                                                "No se pudo eliminar la canción."
+                                                        );
+                                                    }
+                                                } else if (numeroCancionEliminar == 0) {
+                                                    System.out.println("Operación cancelada.");
+                                                } else {
+                                                    System.out.println(
+                                                            "Número no válido. Inténtelo de nuevo."
+                                                    );
+                                                }
+                                            } else {
+                                                System.out.println("No hay canciones para este álbum.");
+                                            }
+                                            break;
+                                        case 3:
+                                            // Logic to update a song (similar to delete, then add)
+                                            // Display the songs
+                                            List<Cancion> cancionesAlbumActualizar = albumControl.obtenerCanciones(
+                                                    albumSeleccionadoSongs
+                                            );
+                                            if (!cancionesAlbumActualizar.isEmpty()) {
+                                                System.out.println(
+                                                        "Lista de canciones para el álbum " +
+                                                                albumSeleccionadoSongs.getNombre() +
+                                                                ":"
+                                                );
+                                                int idx = 1;
+                                                for (Cancion cancion : cancionesAlbumActualizar) {
+                                                    System.out.println(idx + ". " + cancion.getNombre());
+                                                    idx++;
+                                                }
+                                                System.out.println(
+                                                        "Ingrese el número de la canción a actualizar (0 para cancelar):"
+                                                );
+                                                int numeroCancionActualizar = scanner.nextInt();
+                                                scanner.nextLine(); // Consume the newline character
+                                                if (
+                                                        numeroCancionActualizar >= 1 &&
+                                                                numeroCancionActualizar <=
+                                                                        cancionesAlbumActualizar.size()
+                                                ) {
+                                                    Cancion cancionActualizar = cancionesAlbumActualizar.get(
+                                                            numeroCancionActualizar - 1
+                                                    );
 
                           // Delete the existing song
                           if (
