@@ -24,10 +24,10 @@ public class ArtistaControl {
         return new ArrayList<>(artistas);
     }
 
-    public boolean eliminarArtista(String nombre) {
-        // Utiliza un bucle para encontrar y eliminar el artista por nombre
+    public boolean eliminarArtista(String idArtista) {
+        // Utiliza un bucle para encontrar y eliminar el artista por id_artista
         for (Artista artista : artistas) {
-            if (artista.getNombre().equals(nombre)) {
+            if (artista.getId_artista().equals(idArtista)) {
                 artistas.remove(artista);
                 return true;
             }
@@ -35,14 +35,14 @@ public class ArtistaControl {
         return false;
     }
 
-    private Artista buscarArtista(String idArtista) {
+    public Artista buscarArtista(String idArtista) {
+        // Busca un artista por id_artista y lo devuelve si lo encuentra
         for (Artista artista : artistas) {
             if (artista.getId_artista().equals(idArtista)) {
                 return artista;
             }
         }
-        return null;
+        return null;  // Retorna null si no se encuentra el artista
     }
-    
-
 }
+

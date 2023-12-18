@@ -7,12 +7,15 @@ import co.uptc.edu.controller.BandaControl;
 import co.uptc.edu.controller.CancionControl;
 import co.uptc.edu.controller.ColeccionistaControl;
 import co.uptc.edu.controller.ComentariosControl;
+import co.uptc.edu.controller.PremiosControl;
 import co.uptc.edu.model.Album;
 import co.uptc.edu.model.Artista;
 import co.uptc.edu.model.Banda;
 import co.uptc.edu.model.Cancion;
 import co.uptc.edu.model.Colector;
 import co.uptc.edu.model.Comentario;
+import co.uptc.edu.model.DetallesPremio;
+import co.uptc.edu.model.Premio;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -26,14 +29,13 @@ public class Runner {
     AlbumControl albumControl = new AlbumControl();
     ArtistaControl artistaControl = new ArtistaControl();
     ColeccionistaControl coleccionistaControl = new ColeccionistaControl();
-    // List<Album> listaAlbumes = albumControl.getAlbums();
-    //ArrayList<Album> listaAlbumesControl = new ArrayList<>(listaAlbumes);
     ComentariosControl comentariosControl = new ComentariosControl();
     ArrayList<Album> listaAlbumes = albumControl.getAlbums();
     ArrayList<Colector> listaColeccionistas = coleccionistaControl.obtenerListaColeccionistas();
     AccesControl accesControl = new AccesControl();
     CancionControl cancionControl = new CancionControl();
     BandaControl bandaControl = new BandaControl();
+    PremiosControl premiosControl = new PremiosControl();
 
     int opcion;
     boolean inicioSesion = false;
@@ -303,41 +305,45 @@ public class Runner {
               }
               break;
             case 3:
-              // Display the list of albums with numbers
-              System.out.println("Lista de Álbumes:");
-              int i = 1;
-              for (Album album : listaAlbumes) {
-                System.out.println(i + ". " + album.getNombre());
-                i++;
-              }
-
-              System.out.println(
-                "Ingrese el número del álbum a eliminar (0 para cancelar): "
-              );
-              int numeroEliminar = scanner.nextInt();
-              scanner.nextLine(); // consume the newline character
-
-              if (numeroEliminar == 0) {
-                System.out.println("Operación cancelada.");
-              } else if (
-                numeroEliminar >= 1 && numeroEliminar <= listaAlbumes.size()
-              ) {
-                // Utilize the método eliminarAlbum of AlbumControl with the index
-                if (
-                  albumControl.eliminarAlbum(
-                    listaAlbumes.get(numeroEliminar - 1).getNombre()
-                  )
-                ) {
-                  System.out.println("Álbum eliminado exitosamente.");
-                } else {
-                  System.out.println(
-                    "El álbum no se encontró en la lista o no se pudo eliminar."
-                  );
-                }
+              if (listaAlbumes.isEmpty()) {
+                System.out.println("La lista de álbumes está vacía.");
               } else {
-                System.out.println("Número no válido. Inténtelo de nuevo.");
+                // Display the list of albums with numbers
+                System.out.println("Lista de Álbumes:");
+                int i = 1;
+                for (Album album : listaAlbumes) {
+                  System.out.println(i + ". " + album.getNombre());
+                  i++;
+                }
+
+                System.out.println(
+                  "Ingrese el número del álbum a eliminar (0 para cancelar): "
+                );
+                int numeroEliminar = scanner.nextInt();
+                scanner.nextLine(); // consume the newline character
+
+                if (numeroEliminar == 0) {
+                  System.out.println("Operación cancelada.");
+                } else if (
+                  numeroEliminar >= 1 && numeroEliminar <= listaAlbumes.size()
+                ) {
+                  // Utilize the método eliminarAlbum of AlbumControl with the index
+                  if (
+                    albumControl.eliminarAlbum(
+                      listaAlbumes.get(numeroEliminar - 1).getNombre()
+                    )
+                  ) {
+                    System.out.println("Álbum eliminado exitosamente.");
+                  } else {
+                    System.out.println(
+                      "El álbum no se encontró en la lista o no se pudo eliminar."
+                    );
+                  }
+                } else {
+                  System.out.println("Número no válido. Inténtelo de nuevo.");
+                }
+                break;
               }
-              break;
             case 4:
               if (listaAlbumes.isEmpty()) {
                 System.out.println("La lista de álbumes está vacía.");
@@ -833,394 +839,195 @@ public class Runner {
           }
           break;
         case 2:
-          // Llamar a métodos de control de artistas
-          System.out.println("1. Añadir Artista");
-          System.out.println("2. Mostrar Lista de Artistas");
-          System.out.println("3. Eliminar Artista");
-          System.out.println("4. Gestion Bandas");
-          System.out.println("0. Volver al Menú Principal");
+          if (listaAlbumes.isEmpty()) {
+            System.out.println("La lista de álbumes está vacía.");
+          } else {
+            // Mostrar la lista de álbumes
+            System.out.println("Lista de Álbumes:");
+            int albumIndexSongs = 1;
+            for (Album album : listaAlbumes) {
+              System.out.println(albumIndexSongs + ". " + album.getNombre());
+              albumIndexSongs++;
+            }
 
-          int opcionArtista = scanner.nextInt();
-          scanner.nextLine(); // consumir el salto de linea
-
-          switch (opcionArtista) {
-            case 1:
-              // Lógica para añadir artista
-              System.out.println("Ingrese el nombre del artista: ");
-              String nombreArtista = scanner.nextLine();
-
-              System.out.println("Ingrese la descripción del artista: ");
-              String descripcionArtista = scanner.nextLine();
-
-              // Crea un objeto Artista con la información proporcionada
-              Artista nuevoArtista = new Artista(
-                nombreArtista,
-                null,
-                descripcionArtista,
-                null
+            // Pedir al usuario que elija un álbum
+            int numeroAlbumSeleccionadoSongs = -1;
+            while (true) {
+              System.out.println(
+                "Ingrese el número del álbum (0 para cancelar):"
               );
+              numeroAlbumSeleccionadoSongs = scanner.nextInt();
+              scanner.nextLine(); // Consume el salto de línea
 
-              // Utiliza el método añadirArtista de ArtistaControl
-              if (artistaControl.añadirArtista(nuevoArtista)) {
-                System.out.println("Artista añadido exitosamente.");
+              if (
+                numeroAlbumSeleccionadoSongs >= 0 &&
+                numeroAlbumSeleccionadoSongs <= listaAlbumes.size()
+              ) {
+                break;
               } else {
-                System.out.println("El artista ya existe en la lista.");
+                System.out.println("Número no válido. Inténtelo de nuevo.");
               }
-              break;
-            case 2:
-              // Lógica para mostrar lista de artistas
-              ArrayList<Artista> listaArtistas = artistaControl.obtenerListaArtistas();
+            }
 
-              if (listaArtistas.isEmpty()) {
-                System.out.println("La lista de artistas está vacía.");
-                System.out.println(
-                  "¿Desea agregar un nuevo artista? (1.Sí/2.No): "
-                );
-                int respuesta = scanner.nextInt();
-                scanner.nextLine(); // Consumir la nueva línea pendiente
-                if (respuesta == 1) {
-                  // Lógica para añadir artista
-                  System.out.println("Ingrese el nombre del artista: ");
-                  String nombreArtistaNuevo = scanner.next();
+            // Lógica para manejar artistas según la opción seleccionada
+            switch (numeroAlbumSeleccionadoSongs) {
+              case 1:
+                // Lógica para añadir artista
+                System.out.println("Ingrese el nombre del artista: ");
+                String nombreArtista = scanner.nextLine();
 
-                  System.out.println("Ingrese la imagen del artista: ");
-                  String imagenArtistaNuevo = scanner.next();
+                System.out.println("Ingrese la descripción del artista: ");
+                String descripcionArtista = scanner.nextLine();
 
-                  System.out.println("Ingrese la descripción del artista: ");
-                  String descripcionArtistaNuevo = scanner.next();
+                System.out.println("Ingrese el id del artista: ");
+                String idArtista = scanner.nextLine();
 
-                  // Crea un objeto Artista con la información proporcionada
-                  Artista nuevoArtista1 = new Artista(
-                    nombreArtistaNuevo,
-                    imagenArtistaNuevo,
-                    descripcionArtistaNuevo,
-                    nombreArtistaNuevo
+                // Verificar que las entradas no estén vacías
+                if (
+                  nombreArtista.isEmpty() ||
+                  descripcionArtista.isEmpty() ||
+                  idArtista.isEmpty()
+                ) {
+                  System.out.println(
+                    "Ningún campo debe quedar vacío. Inténtelo de nuevo."
+                  );
+                } else {
+                  // Crear un objeto Artista
+                  Artista nuevoArtista = new Artista(
+                    nombreArtista,
+                    descripcionArtista,
+                    idArtista
                   );
 
-                  // Utiliza el método añadirArtista de ArtistaControl
-                  if (artistaControl.añadirArtista(nuevoArtista1)) {
+                  // Añadir el artista usando el método de control
+                  if (artistaControl.añadirArtista(nuevoArtista)) {
                     System.out.println("Artista añadido exitosamente.");
                   } else {
-                    System.out.println("El artista ya existe en la lista.");
+                    System.out.println("El artista ya existe.");
                   }
+                }
 
-                  // Muestra la lista actualizada de artistas
-                  listaArtistas = artistaControl.obtenerListaArtistas();
+                // Crear un objeto Artista
+                Artista nuevoArtista = new Artista(
+                  nombreArtista,
+                  descripcionArtista,
+                  idArtista
+                );
+
+                // Añadir el artista usando el método de control
+                if (artistaControl.añadirArtista(nuevoArtista)) {
+                  System.out.println("Artista añadido exitosamente.");
+                } else {
+                  System.out.println("El artista ya existe.");
+                }
+                break;
+              case 2:
+                // Mostrar Lista de Artistas
+                ArrayList<Artista> listaArtistas = artistaControl.obtenerListaArtistas();
+                if (listaArtistas.isEmpty()) {
+                  System.out.println("La lista de artistas está vacía.");
+                } else {
+                  System.out.println("Lista de Artistas:");
                   for (Artista artista : listaArtistas) {
                     System.out.println("Nombre: " + artista.getNombre());
-                    System.out.println("Imagen: " + artista.getImagen());
                     System.out.println(
                       "Descripción: " + artista.getDescripcion()
                     );
-                    System.out.println("------------------------------------");
+                    System.out.println("Id: " + artista.getId_artista());
+                    System.out.println("------------------------");
                   }
+                }
+                break;
+              case 3:
+                // Mostrar Lista de Artistas antes de eliminar
+                ArrayList<Artista> listaArtistasEliminar = artistaControl.obtenerListaArtistas();
+                if (listaArtistasEliminar.isEmpty()) {
+                  System.out.println("La lista de artistas está vacía.");
                 } else {
-                  System.out.println("Operación cancelada.");
-                }
-              } else {
-                System.out.println("Lista de Artistas:");
-                for (Artista artista : listaArtistas) {
-                  System.out.println("Nombre: " + artista.getNombre());
-                  System.out.println("Imagen: " + artista.getImagen());
+                  System.out.println("Lista de Artistas:");
+                  for (Artista artista : listaArtistasEliminar) {
+                    System.out.println("Nombre: " + artista.getNombre());
+                    System.out.println(
+                      "Descripción: " + artista.getDescripcion()
+                    );
+                    System.out.println("Id: " + artista.getId_artista());
+                    System.out.println("------------------------");
+                  }
+
                   System.out.println(
-                    "Descripción: " + artista.getDescripcion()
+                    "Ingrese el nombre del artista a eliminar:"
                   );
-                  System.out.println("------------------------------------");
+                  String nombreEliminar = scanner.nextLine();
+                  if (artistaControl.eliminarArtista(nombreEliminar)) {
+                    System.out.println("Artista eliminado exitosamente.");
+                  } else {
+                    System.out.println("No se encontró el artista.");
+                  }
                 }
-              }
-              break;
-            case 3:
-              // Lógica para eliminar artista
-              System.out.println("Lista de Artistas:");
+                break;
+              case 4:
+                // Lógica para manejar premios de artistas
+                System.out.println("Ingrese el ID del artista: ");
+                String idArtistaPremio = scanner.nextLine();
 
-              // Mostrar lista de artistas con números
-              ArrayList<Artista> listaArtistasEliminar = artistaControl.obtenerListaArtistas();
-              for (int i = 0; i < listaArtistasEliminar.size(); i++) {
-                Artista artista = listaArtistasEliminar.get(i);
-                System.out.println((i + 1) + ". " + artista.getNombre());
-              }
-
-              System.out.println(
-                "Ingrese el número del artista a eliminar (0 para cancelar): "
-              );
-              int numeroArtistaEliminar = scanner.nextInt();
-
-              if (
-                numeroArtistaEliminar >= 1 &&
-                numeroArtistaEliminar <= listaArtistasEliminar.size()
-              ) {
-                // Utiliza el método eliminarArtista de ArtistaControl con el índice
-                Artista artistaEliminar = listaArtistasEliminar.get(
-                  numeroArtistaEliminar - 1
+                // Verificar si el artista existe antes de continuar
+                Artista artistaPremio = artistaControl.buscarArtista(
+                  idArtistaPremio
                 );
-                if (
-                  artistaControl.eliminarArtista(artistaEliminar.getNombre())
-                ) {
-                  System.out.println("Artista eliminado exitosamente.");
-                } else {
+                if (artistaPremio == null) {
                   System.out.println(
-                    "El artista no se encontró en la lista o no se pudo eliminar."
+                    "Artista no encontrado. Verifique el ID del artista e inténtelo de nuevo."
                   );
+                  break;
                 }
-              } else if (numeroArtistaEliminar == 0) {
-                System.out.println("Operación cancelada.");
-              } else {
-                System.out.println("Número de artista no válido.");
-              }
-              break;
-            case 4:
-              // Lógica para gestionar bandas
-              System.out.println("1. Crear Banda");
-              System.out.println("2. Mostrar Lista de Bandas");
-              System.out.println("3. Actualizar Banda");
-              System.out.println("4. Eliminar Banda");
-              System.out.println("0. Volver al Menú Principal");
 
-              int opcionBanda = scanner.nextInt();
-              scanner.nextLine(); // Consumir la nueva línea pendiente
+                System.out.println("Ingrese el ID del premio: ");
+                String idPremio = scanner.nextLine();
 
-              switch (opcionBanda) {
-                case 1:
-                  // Lógica para crear banda
-                  System.out.println("Ingrese el nombre de la banda: ");
-                  String nombreBanda = scanner.nextLine();
-
-                  System.out.println("Ingrese el género de la banda: ");
-                  String generoBanda = scanner.nextLine();
-
+                // Utiliza la instancia de PremiosControl para buscar el premio
+                Premio premio = premiosControl.buscarPremio(idPremio);
+                if (premio == null) {
                   System.out.println(
-                    "Ingrese la fecha de creación de la banda: "
+                    "Premio no encontrado. Verifique el ID del premio e inténtelo de nuevo."
                   );
-                  String fechaCreacionBanda = scanner.nextLine();
+                  break;
+                }
 
-                  // Crear un objeto Banda con la información proporcionada
-                  Banda nuevaBanda = new Banda(
-                    null,
-                    nombreBanda,
-                    generoBanda,
-                    fechaCreacionBanda,
-                    null
+                // Verificar si ya existen detalles de premio para el artista y el premio
+                DetallesPremio detallesExistente = premiosControl.buscarDetallesPremio(
+                  idArtistaPremio,
+                  idPremio
+                );
+                if (detallesExistente != null) {
+                  System.out.println(
+                    "Ya existen detalles de premio para este artista y premio."
                   );
-                  bandaControl.crear(nuevaBanda);
-                  System.out.println("Banda creada exitosamente.");
                   break;
-                case 2:
-                  // Lógica para mostrar lista de bandas
-                  List<Banda> listaBandas = bandaControl.listar();
+                }
 
-                  if (listaBandas.isEmpty()) {
-                    System.out.println("La lista de bandas está vacía.");
-                  } else {
-                    System.out.println("Lista de Bandas:");
-                    for (Banda banda : listaBandas) {
-                      System.out.println("Nombre: " + banda.getNombre());
-                      System.out.println("Género: " + banda.getGenero());
-                      System.out.println(
-                        "Fecha de Creación: " + banda.getFechaCreacion()
-                      );
-                      System.out.println(
-                        "------------------------------------"
-                      );
-                    }
-                  }
-                  break;
-                case 3:
-                  // Lógica para actualizar banda
-                  // Mostrar lista de bandas
-                  List<Banda> listaBandasActualizar = bandaControl.listar();
-                  if (listaBandasActualizar.isEmpty()) {
-                    System.out.println("La lista de bandas está vacía.");
-                    System.out.println(
-                      "¿Desea agregar una nueva banda? (1: Sí, 0: No): "
-                    );
-                    int agregarNuevaBanda = scanner.nextInt();
-                    scanner.nextLine(); // Consumir la nueva línea pendiente
-                    if (agregarNuevaBanda == 1) {
-                      // Lógica para crear banda (similar a la opción 1 del menú)
-                      // Lógica para crear banda
-                      System.out.println("Ingrese el nombre de la banda: ");
-                      String nombreBanda1 = scanner.nextLine();
+                // Crear un objeto DetallesPremio utilizando la instancia de PremiosControl
+                // Crear un objeto DetallesPremio
+                DetallesPremio nuevosDetalles = new DetallesPremio(
+                  artistaPremio,
+                  premio,
+                  idArtistaPremio
+                );
 
-                      System.out.println("Ingrese el género de la banda: ");
-                      String generoBanda1 = scanner.nextLine();
-
-                      System.out.println(
-                        "Ingrese la fecha de creación de la banda: "
-                      );
-                      String fechaCreacionBanda1 = scanner.nextLine();
-
-                      System.out.println(
-                        "Ingrese la lista de artistas de la banda: "
-                      );
-
-                      // Crear un objeto Banda con la información proporcionada
-                      Banda nuevaBanda1 = new Banda(
-                        null,
-                        nombreBanda1,
-                        generoBanda1,
-                        fechaCreacionBanda1,
-                        null
-                      );
-                      bandaControl.crear(nuevaBanda1);
-                      System.out.println("Banda creada exitosamente.");
-                      break;
-                    } else {
-                      System.out.println("Operación cancelada.");
-                      break;
-                    }
-                  } else {
-                    // Mostrar lista de bandas con números
-                    System.out.println("Lista de Bandas:");
-                    for (int i = 0; i < listaBandasActualizar.size(); i++) {
-                      Banda banda = listaBandasActualizar.get(i);
-                      System.out.println((i + 1) + ". " + banda.getNombre());
-                    }
-
-                    System.out.println(
-                      "Ingrese el número de la banda a actualizar (0 para cancelar): "
-                    );
-                    int numeroBandaActualizar = scanner.nextInt();
-
-                    if (
-                      numeroBandaActualizar >= 1 &&
-                      numeroBandaActualizar <= listaBandasActualizar.size()
-                    ) {
-                      // Obtener la banda seleccionada
-                      Banda bandaActualizar = listaBandasActualizar.get(
-                        numeroBandaActualizar - 1
-                      );
-
-                      // Lógica para crear banda
-                      System.out.println("Ingrese el nombre de la banda: ");
-                      String nombreBanda2 = scanner.nextLine();
-
-                      System.out.println("Ingrese el género de la banda: ");
-                      String generoBanda2 = scanner.nextLine();
-
-                      System.out.println(
-                        "Ingrese la fecha de creación de la banda: "
-                      );
-                      String fechaCreacionBanda2 = scanner.nextLine();
-
-                      System.out.println(
-                        "Ingrese la lista de artistas de la banda: "
-                      );
-
-                      // Crear un objeto Banda con la información proporcionada
-                      Banda nuevaBanda2 = new Banda(
-                        null,
-                        nombreBanda2,
-                        generoBanda2,
-                        fechaCreacionBanda2,
-                        null
-                      );
-                      bandaControl.crear(nuevaBanda2);
-                      System.out.println("Banda creada exitosamente.");
-
-                      System.out.println("Banda actualizada exitosamente.");
-                    } else if (numeroBandaActualizar == 0) {
-                      System.out.println("Operación cancelada.");
-                    } else {
-                      System.out.println(
-                        "Número no válido. Inténtelo de nuevo."
-                      );
-                    }
-                  }
-                  break;
-                case 4:
-                  // Lógica para eliminar banda
-                  // Mostrar lista de bandas
-                  List<Banda> listaBandasEliminar = bandaControl.listar();
-                  if (listaBandasEliminar.isEmpty()) {
-                    System.out.println("La lista de bandas está vacía.");
-                    System.out.println(
-                      "¿Desea agregar una nueva banda? (1: Sí, 0: No): "
-                    );
-                    int agregarNuevaBanda = scanner.nextInt();
-                    scanner.nextLine(); // Consumir la nueva línea pendiente
-                    if (agregarNuevaBanda == 1) {
-                      // Lógica para crear banda
-                      System.out.println("Ingrese el nombre de la banda: ");
-                      String nombreBanda3 = scanner.nextLine();
-
-                      System.out.println("Ingrese el género de la banda: ");
-                      String generoBanda3 = scanner.nextLine();
-
-                      System.out.println(
-                        "Ingrese la fecha de creación de la banda: "
-                      );
-                      String fechaCreacionBanda3 = scanner.nextLine();
-
-                      System.out.println(
-                        "Ingrese la lista de artistas de la banda: "
-                      );
-
-                      // Crear un objeto Banda con la información proporcionada
-                      Banda nuevaBanda3 = new Banda(
-                        null,
-                        nombreBanda3,
-                        generoBanda3,
-                        fechaCreacionBanda3,
-                        null
-                      );
-                      bandaControl.crear(nuevaBanda3);
-                      System.out.println("Banda creada exitosamente.");
-                      break;
-                    } else {
-                      System.out.println("Operación cancelada.");
-                      break;
-                    }
-                  } else {
-                    // Mostrar lista de bandas con números
-                    System.out.println("Lista de Bandas:");
-                    for (int i = 0; i < listaBandasEliminar.size(); i++) {
-                      Banda banda = listaBandasEliminar.get(i);
-                      System.out.println((i + 1) + ". " + banda.getNombre());
-                    }
-
-                    System.out.println(
-                      "Ingrese el número de la banda a eliminar (0 para cancelar): "
-                    );
-                    int numeroBandaEliminar = scanner.nextInt();
-
-                    if (
-                      numeroBandaEliminar >= 1 &&
-                      numeroBandaEliminar <= listaBandasEliminar.size()
-                    ) {
-                      // Obtener la banda seleccionada
-                      Banda bandaEliminar = listaBandasEliminar.get(
-                        numeroBandaEliminar - 1
-                      );
-
-                      // Lógica para eliminar banda (similar a la opción 1 del menú)
-                      bandaControl.eliminar(bandaEliminar.getId_banda());
-
-                      System.out.println("Banda eliminada exitosamente.");
-                    } else if (numeroBandaEliminar == 0) {
-                      System.out.println("Operación cancelada.");
-                    } else {
-                      System.out.println(
-                        "Número no válido. Inténtelo de nuevo."
-                      );
-                    }
-                  }
-                  break;
-                case 0:
-                  // Volver al Menú Principal
-                  break;
-                default:
-                  System.out.println("Opción no válida. Inténtelo de nuevo.");
-                  break;
-              }
-              break;
-            case 0:
-              // Volver al Menú Principal
-              break;
-            default:
-              System.out.println("Opción no válida. Inténtelo de nuevo.");
-              break;
+                // Añadir detalles de premio usando el método de control
+                premiosControl.agregarDetallesPremio(nuevosDetalles);
+                System.out.println(
+                  "Detalles de premio agregados exitosamente."
+                );
+                break;
+              case 0:
+                // Volver al Menú Principal
+                break;
+              default:
+                System.out.println("Opción no válida. Inténtelo de nuevo.");
+                break;
+            }
+            break;
           }
-          break;
         case 3:
           // Llamar a métodos de control de coleccionistas
           System.out.println("1. Registrar Coleccionista");
