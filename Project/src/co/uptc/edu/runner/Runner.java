@@ -144,29 +144,49 @@ public class Runner {
 
               System.out.print("Nombre del álbum: ");
               String nombreAlbum = scanner.nextLine();
+
               System.out.print("Portada del álbum: ");
               String portadaAlbum = scanner.nextLine();
+
               System.out.print("Descripcion del álbum: ");
               String descripcionAlbum = scanner.nextLine();
+
               System.out.print("Fecha lanzamiento del álbum: ");
               String fechaLanzamientoAlbum = scanner.nextLine();
+
               System.out.print("Genero del álbum: ");
               String generoAlbum = scanner.nextLine();
+
               System.out.print("Etiqueta Registro del álbum: ");
               String etiquetaRegistroAlbum = scanner.nextLine();
 
-              // Lógica para añadir el álbum usando el método añadirAlbum de AlbumControl
-              albumControl.añadirAlbum(
-                new Album(
-                  portadaAlbum,
-                  nombreAlbum,
-                  descripcionAlbum,
-                  fechaLanzamientoAlbum,
-                  generoAlbum,
-                  etiquetaRegistroAlbum
-                )
-              );
-              System.out.println("Álbum añadido exitosamente.");
+              // Validate input
+              if (
+                nombreAlbum.isEmpty() ||
+                portadaAlbum.isEmpty() ||
+                descripcionAlbum.isEmpty() ||
+                fechaLanzamientoAlbum.isEmpty() ||
+                generoAlbum.isEmpty() ||
+                etiquetaRegistroAlbum.isEmpty()
+              ) {
+                System.out.println(
+                  "Ningún campo debe quedar vacío. Inténtelo de nuevo."
+                );
+              } else {
+                // Lógica para añadir el álbum usando el método añadirAlbum de AlbumControl
+                albumControl.añadirAlbum(
+                  new Album(
+                    portadaAlbum,
+                    nombreAlbum,
+                    descripcionAlbum,
+                    fechaLanzamientoAlbum,
+                    generoAlbum,
+                    etiquetaRegistroAlbum
+                  )
+                );
+                System.out.println("Álbum añadido exitosamente.");
+              }
+
               break;
             case 2:
               if (!listaAlbumes.isEmpty()) {
@@ -233,31 +253,51 @@ public class Runner {
                 if (agregarNuevoAlbum == 1) {
                   // Logic to add a new album
                   System.out.println("Ingrese los datos del álbum:");
+
                   System.out.print("Nombre del álbum: ");
                   String nombreAlbumNuevo = scanner.nextLine();
+
                   System.out.print("Portada del álbum: ");
                   String portadaAlbumNuevo = scanner.nextLine();
+
                   System.out.print("Descripcion del álbum: ");
                   String descripcionAlbumNuevo = scanner.nextLine();
+
                   System.out.print("Fecha lanzamiento del álbum: ");
                   String fechaLanzamientoAlbumNuevo = scanner.nextLine();
+
                   System.out.print("Genero del álbum: ");
                   String generoAlbumNuevo = scanner.nextLine();
+
                   System.out.print("Etiqueta Registro del álbum: ");
                   String etiquetaRegistroAlbumNuevo = scanner.nextLine();
 
-                  // Logic to add the album using the añadirAlbum method of AlbumControl
-                  albumControl.añadirAlbum(
-                    new Album(
-                      portadaAlbumNuevo,
-                      nombreAlbumNuevo,
-                      descripcionAlbumNuevo,
-                      fechaLanzamientoAlbumNuevo,
-                      generoAlbumNuevo,
-                      etiquetaRegistroAlbumNuevo
-                    )
-                  );
-                  System.out.println("Álbum añadido exitosamente.");
+                  // Validate input
+                  if (
+                    nombreAlbumNuevo.isEmpty() ||
+                    portadaAlbumNuevo.isEmpty() ||
+                    descripcionAlbumNuevo.isEmpty() ||
+                    fechaLanzamientoAlbumNuevo.isEmpty() ||
+                    generoAlbumNuevo.isEmpty() ||
+                    etiquetaRegistroAlbumNuevo.isEmpty()
+                  ) {
+                    System.out.println(
+                      "Ningún campo debe quedar vacío. Inténtelo de nuevo."
+                    );
+                  } else {
+                    // Logic to add the album using the añadirAlbum method of AlbumControl
+                    albumControl.añadirAlbum(
+                      new Album(
+                        portadaAlbumNuevo,
+                        nombreAlbumNuevo,
+                        descripcionAlbumNuevo,
+                        fechaLanzamientoAlbumNuevo,
+                        generoAlbumNuevo,
+                        etiquetaRegistroAlbumNuevo
+                      )
+                    );
+                    System.out.println("Álbum añadido exitosamente.");
+                  }
                   break;
                 }
               }
