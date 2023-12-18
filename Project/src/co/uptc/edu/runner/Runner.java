@@ -592,224 +592,238 @@ public class Runner {
               break;
             case 5: // Agregamos una nueva opción para canciones
               // Logic for managing songs
-              System.out.println("Lista de Álbumes:");
-              int albumIndexSongs = 1;
-              for (Album album : listaAlbumes) {
-                System.out.println(albumIndexSongs + ". " + album.getNombre());
-                albumIndexSongs++;
-              }
-              System.out.println(
-                "Ingrese el número del álbum (0 para cancelar):"
-              );
-              int numeroAlbumSeleccionadoSongs = scanner.nextInt();
-              scanner.nextLine(); // Consume the newline character
-
-              if (
-                numeroAlbumSeleccionadoSongs >= 1 &&
-                numeroAlbumSeleccionadoSongs <= listaAlbumes.size()
-              ) {
-                Album albumSeleccionadoSongs = listaAlbumes.get(
-                  numeroAlbumSeleccionadoSongs - 1
+              if (listaAlbumes.isEmpty()) {
+                System.out.println("La lista de álbumes está vacía.");
+              } else {
+                System.out.println("Lista de Álbumes:");
+                int albumIndexSongs = 1;
+                for (Album album : listaAlbumes) {
+                  System.out.println(
+                    albumIndexSongs + ". " + album.getNombre()
+                  );
+                  albumIndexSongs++;
+                }
+                System.out.println(
+                  "Ingrese el número del álbum (0 para cancelar):"
                 );
-
-                // Display additional options
-                System.out.println("Seleccione una opción para canciones:");
-                System.out.println("1. Agregar Canción");
-                System.out.println("2. Eliminar Canción");
-                System.out.println("3. Actualizar Canción");
-                System.out.println("4. Mostrar Canciones");
-
-                int opcionCanciones = scanner.nextInt();
+                int numeroAlbumSeleccionadoSongs = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
 
-                switch (opcionCanciones) {
-                  case 1:
-                    // Logic to add a song
-                    System.out.println("Ingrese los datos de la canción:");
-                    System.out.print("Nombre de la canción: ");
-                    String nombreCancion = scanner.nextLine();
-                    System.out.print("Duración de la canción: ");
-                    String duracionCancion = scanner.nextLine();
+                if (
+                  numeroAlbumSeleccionadoSongs >= 1 &&
+                  numeroAlbumSeleccionadoSongs <= listaAlbumes.size()
+                ) {
+                  Album albumSeleccionadoSongs = listaAlbumes.get(
+                    numeroAlbumSeleccionadoSongs - 1
+                  );
 
-                    // Validate input
-                    if (nombreCancion.isEmpty() || duracionCancion.isEmpty()) {
-                      System.out.println(
-                        "Ningún campo debe quedar vacío. Inténtelo de nuevo."
-                      );
-                    } else {
-                      // Logic to add the song using the añadirCancion method of AlbumControl
-                      albumControl.añadirCancion(
-                        albumSeleccionadoSongs,
-                        new Cancion(nombreCancion, duracionCancion)
-                      );
-                      System.out.println("Canción agregada exitosamente.");
-                    }
-                    break;
-                  case 2:
-                    // Logic to delete a song
-                    // Display the songs
-                    List<Cancion> cancionesAlbum = albumControl.obtenerCanciones(
-                      albumSeleccionadoSongs
-                    );
-                    if (!cancionesAlbum.isEmpty()) {
-                      System.out.println(
-                        "Lista de canciones para el álbum " +
-                        albumSeleccionadoSongs.getNombre() +
-                        ":"
-                      );
-                      int idx = 1;
-                      for (Cancion cancion : cancionesAlbum) {
-                        System.out.println(idx + ". " + cancion.getNombre());
-                        idx++;
-                      }
-                      System.out.println(
-                        "Ingrese el número de la canción a eliminar (0 para cancelar):"
-                      );
-                      int numeroCancionEliminar = scanner.nextInt();
-                      scanner.nextLine(); // Consume the newline character
+                  // Display additional options
+                  System.out.println("Seleccione una opción para canciones:");
+                  System.out.println("1. Agregar Canción");
+                  System.out.println("2. Eliminar Canción");
+                  System.out.println("3. Actualizar Canción");
+                  System.out.println("4. Mostrar Canciones");
+
+                  int opcionCanciones = scanner.nextInt();
+                  scanner.nextLine(); // Consume the newline character
+
+                  switch (opcionCanciones) {
+                    case 1:
+                      // Logic to add a song
+                      System.out.println("Ingrese los datos de la canción:");
+                      System.out.print("Nombre de la canción: ");
+                      String nombreCancion = scanner.nextLine();
+                      System.out.print("Duración de la canción: ");
+                      String duracionCancion = scanner.nextLine();
+
+                      // Validate input
                       if (
-                        numeroCancionEliminar >= 1 &&
-                        numeroCancionEliminar <= cancionesAlbum.size()
+                        nombreCancion.isEmpty() || duracionCancion.isEmpty()
                       ) {
-                        Cancion cancionEliminar = cancionesAlbum.get(
-                          numeroCancionEliminar - 1
-                        );
-                        if (
-                          albumControl.eliminarCancion(
-                            albumSeleccionadoSongs,
-                            cancionEliminar
-                          )
-                        ) {
-                          System.out.println("Canción eliminada exitosamente.");
-                        } else {
-                          System.out.println("No se pudo eliminar la canción.");
-                        }
-                      } else if (numeroCancionEliminar == 0) {
-                        System.out.println("Operación cancelada.");
-                      } else {
                         System.out.println(
-                          "Número no válido. Inténtelo de nuevo."
+                          "Ningún campo debe quedar vacío. Inténtelo de nuevo."
                         );
-                      }
-                    } else {
-                      System.out.println("No hay canciones para este álbum.");
-                    }
-                    break;
-                  case 3:
-                    // Logic to update a song (similar to delete, then add)
-                    // Display the songs
-                    List<Cancion> cancionesAlbumActualizar = albumControl.obtenerCanciones(
-                      albumSeleccionadoSongs
-                    );
-                    if (!cancionesAlbumActualizar.isEmpty()) {
-                      System.out.println(
-                        "Lista de canciones para el álbum " +
-                        albumSeleccionadoSongs.getNombre() +
-                        ":"
-                      );
-                      int idx = 1;
-                      for (Cancion cancion : cancionesAlbumActualizar) {
-                        System.out.println(idx + ". " + cancion.getNombre());
-                        idx++;
-                      }
-                      System.out.println(
-                        "Ingrese el número de la canción a actualizar (0 para cancelar):"
-                      );
-                      int numeroCancionActualizar = scanner.nextInt();
-                      scanner.nextLine(); // Consume the newline character
-                      if (
-                        numeroCancionActualizar >= 1 &&
-                        numeroCancionActualizar <=
-                        cancionesAlbumActualizar.size()
-                      ) {
-                        Cancion cancionActualizar = cancionesAlbumActualizar.get(
-                          numeroCancionActualizar - 1
+                      } else {
+                        // Logic to add the song using the añadirCancion method of AlbumControl
+                        albumControl.añadirCancion(
+                          albumSeleccionadoSongs,
+                          new Cancion(nombreCancion, duracionCancion)
                         );
-
-                        // Delete the existing song
+                        System.out.println("Canción agregada exitosamente.");
+                      }
+                      break;
+                    case 2:
+                      // Logic to delete a song
+                      // Display the songs
+                      List<Cancion> cancionesAlbum = albumControl.obtenerCanciones(
+                        albumSeleccionadoSongs
+                      );
+                      if (!cancionesAlbum.isEmpty()) {
+                        System.out.println(
+                          "Lista de canciones para el álbum " +
+                          albumSeleccionadoSongs.getNombre() +
+                          ":"
+                        );
+                        int idx = 1;
+                        for (Cancion cancion : cancionesAlbum) {
+                          System.out.println(idx + ". " + cancion.getNombre());
+                          idx++;
+                        }
+                        System.out.println(
+                          "Ingrese el número de la canción a eliminar (0 para cancelar):"
+                        );
+                        int numeroCancionEliminar = scanner.nextInt();
+                        scanner.nextLine(); // Consume the newline character
                         if (
-                          albumControl.eliminarCancion(
-                            albumSeleccionadoSongs,
-                            cancionActualizar
-                          )
+                          numeroCancionEliminar >= 1 &&
+                          numeroCancionEliminar <= cancionesAlbum.size()
                         ) {
-                          System.out.println(
-                            "Ingrese los nuevos datos de la canción:"
+                          Cancion cancionEliminar = cancionesAlbum.get(
+                            numeroCancionEliminar - 1
                           );
-                          System.out.print("Nuevo nombre de la canción: ");
-                          String nuevoNombreCancion = scanner.nextLine();
-                          System.out.print("Nueva duración de la canción: ");
-                          String nuevaDuracionCancion = scanner.nextLine();
-
-                          // Validate input
                           if (
-                            nuevoNombreCancion.isEmpty() ||
-                            nuevaDuracionCancion.isEmpty()
+                            albumControl.eliminarCancion(
+                              albumSeleccionadoSongs,
+                              cancionEliminar
+                            )
                           ) {
                             System.out.println(
-                              "Ningún campo debe quedar vacío. Inténtelo de nuevo."
+                              "Canción eliminada exitosamente."
                             );
                           } else {
-                            // Logic to add the updated song
-                            albumControl.añadirCancion(
-                              albumSeleccionadoSongs,
-                              new Cancion(
-                                nuevoNombreCancion,
-                                nuevaDuracionCancion
-                              )
-                            );
                             System.out.println(
-                              "Canción actualizada exitosamente."
+                              "No se pudo eliminar la canción."
                             );
                           }
+                        } else if (numeroCancionEliminar == 0) {
+                          System.out.println("Operación cancelada.");
                         } else {
                           System.out.println(
-                            "No se pudo actualizar la canción."
+                            "Número no válido. Inténtelo de nuevo."
                           );
                         }
-                      } else if (numeroCancionActualizar == 0) {
-                        System.out.println("Operación cancelada.");
                       } else {
-                        System.out.println(
-                          "Número no válido. Inténtelo de nuevo."
-                        );
+                        System.out.println("No hay canciones para este álbum.");
                       }
-                    } else {
-                      System.out.println("No hay canciones para este álbum.");
-                    }
-                    break;
-                  case 4:
-                    // Logic to display songs
-                    List<Cancion> cancionesAlbumMostrar = albumControl.obtenerCanciones(
-                      albumSeleccionadoSongs
-                    );
-                    if (!cancionesAlbumMostrar.isEmpty()) {
-                      System.out.println(
-                        "Lista de canciones para el álbum " +
-                        albumSeleccionadoSongs.getNombre() +
-                        ":"
+                      break;
+                    case 3:
+                      // Logic to update a song (similar to delete, then add)
+                      // Display the songs
+                      List<Cancion> cancionesAlbumActualizar = albumControl.obtenerCanciones(
+                        albumSeleccionadoSongs
                       );
-                      for (Cancion cancion : cancionesAlbumMostrar) {
-                        System.out.println("Nombre: " + cancion.getNombre());
+                      if (!cancionesAlbumActualizar.isEmpty()) {
                         System.out.println(
-                          "Duración: " + cancion.getDuracion()
+                          "Lista de canciones para el álbum " +
+                          albumSeleccionadoSongs.getNombre() +
+                          ":"
                         );
-                        System.out.println("------------------------");
+                        int idx = 1;
+                        for (Cancion cancion : cancionesAlbumActualizar) {
+                          System.out.println(idx + ". " + cancion.getNombre());
+                          idx++;
+                        }
+                        System.out.println(
+                          "Ingrese el número de la canción a actualizar (0 para cancelar):"
+                        );
+                        int numeroCancionActualizar = scanner.nextInt();
+                        scanner.nextLine(); // Consume the newline character
+                        if (
+                          numeroCancionActualizar >= 1 &&
+                          numeroCancionActualizar <=
+                          cancionesAlbumActualizar.size()
+                        ) {
+                          Cancion cancionActualizar = cancionesAlbumActualizar.get(
+                            numeroCancionActualizar - 1
+                          );
+
+                          // Delete the existing song
+                          if (
+                            albumControl.eliminarCancion(
+                              albumSeleccionadoSongs,
+                              cancionActualizar
+                            )
+                          ) {
+                            System.out.println(
+                              "Ingrese los nuevos datos de la canción:"
+                            );
+                            System.out.print("Nuevo nombre de la canción: ");
+                            String nuevoNombreCancion = scanner.nextLine();
+                            System.out.print("Nueva duración de la canción: ");
+                            String nuevaDuracionCancion = scanner.nextLine();
+
+                            // Validate input
+                            if (
+                              nuevoNombreCancion.isEmpty() ||
+                              nuevaDuracionCancion.isEmpty()
+                            ) {
+                              System.out.println(
+                                "Ningún campo debe quedar vacío. Inténtelo de nuevo."
+                              );
+                            } else {
+                              // Logic to add the updated song
+                              albumControl.añadirCancion(
+                                albumSeleccionadoSongs,
+                                new Cancion(
+                                  nuevoNombreCancion,
+                                  nuevaDuracionCancion
+                                )
+                              );
+                              System.out.println(
+                                "Canción actualizada exitosamente."
+                              );
+                            }
+                          } else {
+                            System.out.println(
+                              "No se pudo actualizar la canción."
+                            );
+                          }
+                        } else if (numeroCancionActualizar == 0) {
+                          System.out.println("Operación cancelada.");
+                        } else {
+                          System.out.println(
+                            "Número no válido. Inténtelo de nuevo."
+                          );
+                        }
+                      } else {
+                        System.out.println("No hay canciones para este álbum.");
                       }
-                    } else {
-                      System.out.println("No hay canciones para este álbum.");
-                    }
-                    break;
-                  default:
-                    System.out.println("Opción no válida. Inténtelo de nuevo.");
-                    break;
+                      break;
+                    case 4:
+                      // Logic to display songs
+                      List<Cancion> cancionesAlbumMostrar = albumControl.obtenerCanciones(
+                        albumSeleccionadoSongs
+                      );
+                      if (!cancionesAlbumMostrar.isEmpty()) {
+                        System.out.println(
+                          "Lista de canciones para el álbum " +
+                          albumSeleccionadoSongs.getNombre() +
+                          ":"
+                        );
+                        for (Cancion cancion : cancionesAlbumMostrar) {
+                          System.out.println("Nombre: " + cancion.getNombre());
+                          System.out.println(
+                            "Duración: " + cancion.getDuracion()
+                          );
+                          System.out.println("------------------------");
+                        }
+                      } else {
+                        System.out.println("No hay canciones para este álbum.");
+                      }
+                      break;
+                    default:
+                      System.out.println(
+                        "Opción no válida. Inténtelo de nuevo."
+                      );
+                      break;
+                  }
+                } else if (numeroAlbumSeleccionadoSongs == 0) {
+                  System.out.println("Operación cancelada.");
+                } else {
+                  System.out.println("Número no válido. Inténtelo de nuevo.");
                 }
-              } else if (numeroAlbumSeleccionadoSongs == 0) {
-                System.out.println("Operación cancelada.");
-              } else {
-                System.out.println("Número no válido. Inténtelo de nuevo.");
+                break;
               }
-              break;
             case 0:
               // Volver al Menú Principal
               break;
