@@ -1,13 +1,22 @@
 package co.uptc.edu.model;
 
-public class ColectorDetalles {
-    private Colector colector;
+public class ColectorDetalles extends Colector {
 
-    public ColectorDetalles(Colector colector) {
-        this.colector = colector;
-    }
+  private Colector colector;
 
-    public Colector getColector() {
-        return colector;
-    }
+  public ColectorDetalles(
+    String name,
+    String telephone,
+    String email,
+    String nombreUsuario,
+    String contrasena,
+    Colector colector
+  ) {
+    super(name, telephone, email, nombreUsuario, contrasena);
+    this.colector = colector;
+  }
+
+  public Colector getColector() {
+    return colector;
+  }
 }

@@ -2,14 +2,25 @@ package co.uptc.edu.model;
 
 import java.util.Date;
 
-public class Musico {
-    private Date fechaNacimiento;
+public class Musico extends Artista {
 
-    public Musico(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
+  private Date fechaNacimiento;
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
+  public Musico(
+    String nombre,
+    String descripcion,
+    String id_artista,
+    Date fechaNacimiento
+  ) {
+    super(nombre, descripcion, id_artista);
+    this.fechaNacimiento = fechaNacimiento;
+  }
+
+  public Date getFechaNacimiento() {
+    return fechaNacimiento;
+  }
+
+  public void setFechaNacimiento(Date fechaNacimiento) {
+    this.fechaNacimiento = fechaNacimiento;
+  }
 }

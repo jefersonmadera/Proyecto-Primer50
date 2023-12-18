@@ -1,11 +1,15 @@
 package co.uptc.edu.model;
 
-public class DetallesPremio {
+public class DetallesPremio extends Premio {
     private Artista artista;
     private Premio premio;
     private String idArtista;  // Identificador único del artista en esta relación
 
-    public DetallesPremio(Artista artista, Premio premio, String idArtista) {
+    
+
+    public DetallesPremio(String id_premio, String organizacion, String nombre, String descripcion, Artista artista,
+            Premio premio, String idArtista) {
+        super(id_premio, organizacion, nombre, descripcion);
         this.artista = artista;
         this.premio = premio;
         this.idArtista = idArtista;
